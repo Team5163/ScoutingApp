@@ -5,7 +5,7 @@
 --%>
 
 <%@page import="java.util.List"%>
-<%@page import="DataBase.DataBase"%>
+<%@page import="Team5163.DataBase.DataBase"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -33,7 +33,7 @@
             <!-- Generate list of team numbers here -->
         </div>
         <div id="login">
-            <form method="POST" action="processlogin.jsp">
+            <form method="POST" action="Login">
                 <input type="text" placeholder="Username" name="user" /><br />
                 <input type="password"  placeholder = "Password" name = "pass" />
                 <input type="submit" value="Go"/>

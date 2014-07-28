@@ -1,6 +1,10 @@
+package Team5163;
 
-import DataBase.DataBase;
-import Logger.Logger;
+
+import Team5163.DataBase.DataBase;
+import Team5163.Logger.Logger;
+import java.util.HashMap;
+import java.util.Map;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -16,6 +20,9 @@ public class ObjectRegestry {
     
     private static DataBase dataBase = new DataBase();
     private static Logger logger = new Logger();
+    private static Map<String, Integer> users = new HashMap(){{
+        this.put("Yiwen", new String("1234").hashCode());
+    }};
     
     public static DataBase getDataBase(){
         return dataBase;
@@ -23,5 +30,9 @@ public class ObjectRegestry {
     
     public static Logger getLogger(){
         return logger;
+    }
+    
+    public static Map<String, Integer> getAllUsers(){
+        return users;
     }
 }

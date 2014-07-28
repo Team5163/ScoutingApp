@@ -1,10 +1,12 @@
+package Team5163;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 
-import DataBase.DataBase;
+import Team5163.DataBase.DataBase;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -45,7 +47,7 @@ public class Server extends HttpServlet {
 //            out.println("</html>");
 //        }
         request.setAttribute("data", new DataBase());
-        Logger.Logger.log("new client");
+        Team5163.Logger.Logger.log("new client");
         request.getRequestDispatcher("Display.jsp").forward(request, response);
     }
 

@@ -4,11 +4,12 @@
  * and open the template in the editor.
  */
 
-package Logger;
+package Team5163.DataBase;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,16 +20,19 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Yiwen Dong
  */
-@WebServlet(name = "Logger", urlPatterns = {"/Logger"})
-public class Logger{
+@WebServlet(name = "DataBase", urlPatterns = {"/DataBase"})
+public class DataBase{
     
-    public static void log(String message){
-        System.err.println(parseTime() + message);
+    private List<String> listOfString = new ArrayList<>();
+
+    public List<String> getAllData(){
+        this.listOfString.add("Fuck you rish");
+        this.listOfString.add("Why?");
+        this.listOfString.add("Why not?? *said nobody ever*");
+        return listOfString;
     }
     
-    private static String parseTime(){
-        Date date = new Date(System.currentTimeMillis());
-        return "[" + date.toString() + "] : ";
+    public String getData(int teamNumber, String field){
+        return "";
     }
-    
 }
