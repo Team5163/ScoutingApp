@@ -4,6 +4,7 @@
     Author     : Yiwen Dong
 --%>
 
+<%@page import="Team5163.ObjectRegestry"%>
 <%@page import="java.util.List"%>
 <%@page import="Team5163.DataBase.DataBase"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -14,8 +15,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <% //DataBase data = new DataBase(); 
-          DataBase data = (DataBase)request.getAttribute("data"); %>
+        <% DataBase data = ObjectRegestry.getDataBase(); %>
         <div id="logo">
             <img src="logo.png" id="logoimage" />
 
@@ -33,21 +33,32 @@
             <!-- Generate list of team numbers here -->
         </div>
         <div id="login">
+            <% if (request.getSession().getAttribute("login").toString().equalsIgnoreCase("true")) {
+            %> 
+            <p>Welcome <%= request.getSession().getAttribute("name")%> <br> hi</p>
+            <form method="POST" action="Server">
+                <input type="submit" value="Sign Out" />
+            </form>
+            <%
+            } else {
+            %> 
             <form method="POST" action="Login">
                 <input type="text" placeholder="Username" name="user" /><br />
                 <input type="password"  placeholder = "Password" name = "pass" />
                 <input type="submit" value="Go"/>
-            </form>
+            </form>  
+            <%
+                } %>
         </div>
         <div>
             <table>
-            <% List<String> strings = data.getAllData();
-        for(int a = 0; a < strings.size(); a++){
+                <% List<String> strings = data.getAllData();
+                    for (int a = 0; a < strings.size(); a++) {
                 %>
                 <tr>
-                    <td><%= a %></td>
-                    <td><%= strings.get(a) %></td>
-            <% } %>
+                    <td><%= a%></td>
+                    <td><%= strings.get(a)%></td>
+                    <% }%>
             </table>
         </div>
         <div id="info">

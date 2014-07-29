@@ -7,6 +7,7 @@
 package Team5163.Login;
 
 import static Team5163.Logger.Logger.log;
+import Team5163.ObjectRegestry;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -25,10 +26,10 @@ public class LoginData {
     }
     
     public void getUsers() throws IOException{
-        File dataFile = new File("users.xml");
-        Team5163.Logger.Logger.log("ran");
-        log("ran");
-        BufferedReader reader = new BufferedReader(new FileReader("users.xml"));
+//        File dataFile = new File("users.xml");
+//        Team5163.Logger.Logger.log("ran");
+//        log("ran");
+        BufferedReader reader = new BufferedReader(new FileReader(ObjectRegestry.getWorkingDir() + "\\users.xml"));
         String line = null;
         do{
             line = reader.readLine();

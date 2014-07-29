@@ -4,8 +4,10 @@ package Team5163;
 import Team5163.DataBase.DataBase;
 import Team5163.Logger.Logger;
 import Team5163.Login.LoginData;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -24,6 +26,7 @@ public class ObjectRegestry {
     private static Map<String, Integer> users = new HashMap(){{
         this.put("Yiwen", new String("1234").hashCode());
     }};
+    private static String workingDir = System.getenv("APPDATA") + "\\ScoutingApp";
     private static LoginData loginData = new LoginData();
     
     public static DataBase getDataBase(){
@@ -35,7 +38,15 @@ public class ObjectRegestry {
     }
     
     public static Map<String, Integer> getAllUsers(){
-        loginData.getUsers();
+        try {
+            loginData.getUsers();
+        } catch (IOException ex) {
+            java.util.logging.Logger.getLogger(ObjectRegestry.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return users;
+    }
+    
+    public static String getWorkingDir(){
+        return workingDir;
     }
 }

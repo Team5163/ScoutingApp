@@ -5,10 +5,10 @@
  */
 package Team5163.Login;
 
+import Team5163.Logger.Logger;
 import static Team5163.Logger.Logger.log;
 import Team5163.ObjectRegestry;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -33,14 +33,17 @@ public class Login extends HttpServlet {
             throws ServletException, IOException {
         String name = request.getParameter("user");
         String pass = request.getParameter("pass");
-        log("User: \"" + name + "\" Tried to login using pass: \"" + pass + "\"");
+        Logger.log("User: \"" + name + "\" Tried to login using pass: \"" + pass + "\"");
+        Logger.log(ObjectRegestry.getWorkingDir());
         if (checkPass(name, pass)) {
-            log("Welcome user");
-            log(System.getProperty("user.dir"));
+            Logger.log("Welcome user");
+            Logger.log(System.getProperty("user.dir"));
             request.getSession().setAttribute("login", "true");
+            request.getSession().setAttribute("name", name);
+            request.getRequestDispatcher("Display.jsp").forward(request, response);
         } else {
-            log(System.getProperty("user.dir"));
-            log("you idieot");
+            Logger.log(System.getProperty("user.dir"));
+            Logger.log("you idieot");
         }
     }
 

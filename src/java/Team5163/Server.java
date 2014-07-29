@@ -46,8 +46,9 @@ public class Server extends HttpServlet {
 //            out.println("</body>");
 //            out.println("</html>");
 //        }
-        request.setAttribute("data", new DataBase());
+        //request.setAttribute("data", new DataBase());
         Team5163.Logger.Logger.log("new client");
+        request.getSession().setAttribute("login", "false");
         request.getRequestDispatcher("Display.jsp").forward(request, response);
     }
 
