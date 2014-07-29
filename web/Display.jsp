@@ -12,7 +12,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title> 5163 Scouting </title>
+        <link rel="stylesheet" href="style.css" />
     </head>
     <body>
         <% DataBase data = ObjectRegestry.getDataBase(); %>
@@ -35,7 +36,7 @@
         <div id="login">
             <% if (request.getSession().getAttribute("login").toString().equalsIgnoreCase("true")) {
             %> 
-            <p>Welcome <%= request.getSession().getAttribute("name")%> <br> hi</p>
+            <p>Welcome <%= request.getSession().getAttribute("name")%></p>
             <form method="POST" action="Server">
                 <input type="submit" value="Sign Out" />
             </form>
@@ -50,7 +51,7 @@
             <%
                 } %>
         </div>
-        <div>
+        <div id="info">
             <table>
                 <% List<String> strings = data.getAllData();
                     for (int a = 0; a < strings.size(); a++) {
@@ -60,9 +61,6 @@
                     <td><%= strings.get(a)%></td>
                     <% }%>
             </table>
-        </div>
-        <div id="info">
-            <h3> Test </h3>
         </div>
     </body>
 </html>
