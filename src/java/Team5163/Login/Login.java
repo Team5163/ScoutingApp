@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Team5163.Login;
 
+import static Team5163.Logger.Logger.log;
 import Team5163.ObjectRegestry;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -34,17 +34,21 @@ public class Login extends HttpServlet {
         String name = request.getParameter("user");
         String pass = request.getParameter("pass");
         log("User: \"" + name + "\" Tried to login using pass: \"" + pass + "\"");
-        if(checkPass(name, pass)){
+        if (checkPass(name, pass)) {
             log("Welcome user");
+            log(System.getProperty("user.dir"));
             request.getSession().setAttribute("login", "true");
-        } else{
+        } else {
+            log(System.getProperty("user.dir"));
             log("you idieot");
         }
     }
-    
-    private boolean checkPass(String username, String password){
-        if(ObjectRegestry.getAllUsers().get(username).hashCode() == password.hashCode()){
-            return true;
+
+    private boolean checkPass(String username, String password) {
+        if (ObjectRegestry.getAllUsers().containsKey(username)) {
+            if (ObjectRegestry.getAllUsers().get(username).hashCode() == password.hashCode()) {
+                return true;
+            }
         }
         return false;
     }

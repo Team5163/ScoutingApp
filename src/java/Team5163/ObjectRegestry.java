@@ -3,6 +3,7 @@ package Team5163;
 
 import Team5163.DataBase.DataBase;
 import Team5163.Logger.Logger;
+import Team5163.Login.LoginData;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,6 +24,7 @@ public class ObjectRegestry {
     private static Map<String, Integer> users = new HashMap(){{
         this.put("Yiwen", new String("1234").hashCode());
     }};
+    private static LoginData loginData = new LoginData();
     
     public static DataBase getDataBase(){
         return dataBase;
@@ -33,6 +35,7 @@ public class ObjectRegestry {
     }
     
     public static Map<String, Integer> getAllUsers(){
+        loginData.getUsers();
         return users;
     }
 }
