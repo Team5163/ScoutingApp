@@ -23,9 +23,9 @@ public class ObjectRegestry {
     
     private static DataBase dataBase = new DataBase();
     private static Logger logger = new Logger();
-    private static Map<String, Integer> users = new HashMap(){{
-        this.put("Yiwen", new String("1234").hashCode());
-    }};
+//    private static Map<String, Integer> users = new HashMap(){{
+//        this.put("Yiwen", new String("1234").hashCode());
+//    }};
     private static String workingDir = System.getenv("APPDATA") + "\\ScoutingApp";
     private static LoginData loginData = new LoginData();
     
@@ -37,16 +37,16 @@ public class ObjectRegestry {
         return logger;
     }
     
-    public static Map<String, Integer> getAllUsers(){
-        try {
-            loginData.getUsers();
-        } catch (IOException ex) {
-            java.util.logging.Logger.getLogger(ObjectRegestry.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return users;
-    }
+//    public static Map<String, Integer> getAllUsers(){
+//            loginData.getUsers();
+//        return users;
+//    }
     
     public static String getWorkingDir(){
         return workingDir;
+    }
+    
+    public static LoginData getLoginData(){
+        return loginData;
     }
 }

@@ -35,26 +35,27 @@ public class Login extends HttpServlet {
         String pass = request.getParameter("pass");
         Logger.log("User: \"" + name + "\" Tried to login using pass: \"" + pass + "\"");
         Logger.log(ObjectRegestry.getWorkingDir());
-        if (checkPass(name, pass)) {
+        if (ObjectRegestry.getLoginData().checkUser(name, pass)) {
             Logger.log("Welcome user");
-            Logger.log(System.getProperty("user.dir"));
             request.getSession().setAttribute("login", "true");
             request.getSession().setAttribute("name", name);
             request.getRequestDispatcher("Display.jsp").forward(request, response);
         } else {
-            Logger.log(System.getProperty("user.dir"));
+            //Logger.log(System.getProperty("user.dir"));
             Logger.log("you idieot");
+            request.getSession().setAttribute("login", "false");
+            request.getRequestDispatcher("Display.jsp").forward(request, response);
         }
     }
 
-    private boolean checkPass(String username, String password) {
-        if (ObjectRegestry.getAllUsers().containsKey(username)) {
-            if (ObjectRegestry.getAllUsers().get(username).hashCode() == password.hashCode()) {
-                return true;
-            }
-        }
-        return false;
-    }
+//    private boolean checkPass(String username, String password) {
+//        if (ObjectRegestry.getAllUsers().containsKey(username)) {
+//            if (ObjectRegestry.getAllUsers().get(username).hashCode() == password.hashCode()) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
