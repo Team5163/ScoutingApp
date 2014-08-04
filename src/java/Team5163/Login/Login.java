@@ -56,6 +56,16 @@ public class Login extends HttpServlet {
 //        }
 //        return false;
 //    }
+    
+    @Override
+    public void init(){
+        Logger.log("Start");
+    }
+    
+    @Override
+    public void destroy(){
+        Logger.log("destory");
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

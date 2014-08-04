@@ -16,7 +16,14 @@
         <link rel="stylesheet" href="style.css" />
     </head>
     <body>
-        <% DataBase data = ObjectRegestry.getDataBase(); %>
+        <%  DataBase data = ObjectRegestry.getDataBase(); 
+        String frame1;
+        if(request.getAttribute("frame1") != null){
+            frame1 = request.getAttribute("frame1").toString();
+        } else {
+            frame1 = "logo.png";
+        }
+        %>
         <div id="logo">
             <img src="logo.png" id="logoimage" />
 
@@ -38,11 +45,16 @@
             %> 
             <p>Welcome <%= request.getSession().getAttribute("name")%></p>
             <form method="POST" action="Server">
+                <input type="hidden" name="keepin" value="false" />
                 <input type="submit" value="Sign Out" />
             </form>
             <%
             } else {
             %> 
+            <form method="POST" action="Server">
+                <input type="hidden" name="frame1" value="CreateAccount.jsp" />
+                <input type="submit" value="Create Account" />
+            </form>
             <form method="POST" action="Login">
                 <input type="text" placeholder="Username" name="user" /><br />
                 <input type="password"  placeholder = "Password" name = "pass" />
@@ -52,6 +64,7 @@
                 } %>
         </div>
         <div id="info">
+            <iframe src="<%= frame1 %>"></iframe>
             <table>
                 <% List<String> strings = data.getAllData();
                     for (int a = 0; a < strings.size(); a++) {

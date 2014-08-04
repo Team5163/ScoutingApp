@@ -8,6 +8,10 @@
         <servlet-name>Login</servlet-name>
         <servlet-class>Team5163.Login.Login</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Create</servlet-name>
+        <servlet-class>Team5163.Login.Create</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Server</servlet-name>
         <url-pattern>/Server</url-pattern>
@@ -15,6 +19,13 @@
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
+    </servlet-mapping>
+    <listener>
+        <listener-class>Team5163.Event.EventManager</listener-class>
+    </listener>
+    <servlet-mapping>
+        <servlet-name>Create</servlet-name>
+        <url-pattern>/Create</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -1,15 +1,13 @@
-package Team5163;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 
-import Team5163.DataBase.DataBase;
+package Team5163.Login;
+
 import Team5163.Logger.Logger;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,9 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Yiwen Dong
  */
-public class Server extends HttpServlet {
-    
-    DataBase dataBase = new DataBase();
+public class Create extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,35 +30,8 @@ public class Server extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        response.setContentType("text/html;charset=UTF-8");
-//        try (PrintWriter out = response.getWriter()) {
-//            /* TODO output your page here. You may use following sample code. */
-//            out.println("<!DOCTYPE html>");
-//            out.println("<html>");
-//            out.println("<head>");
-//            out.println("<title>Servlet Server</title>");            
-//            out.println("</head>");
-//            out.println("<body>");
-//            out.println("<h1>Servlet Server at " + request.getContextPath() + "</h1>");
-//            out.println("</body>");
-//            out.println("</html>");
-//        }
-        //request.setAttribute("data", new DataBase());
-        Team5163.Logger.Logger.log("new client");
-        if(request.getSession().getAttribute("login") == null){
-            request.getSession().setAttribute("login", "false");
-        }
-        
-        if(request.getParameter("keepin") == "false"){
-            request.getSession().setAttribute("login", "false");
-        }
-        
-        if(request.getParameter("frame1") != null){
-            request.setAttribute("frame1", request.getParameter("frame1"));
-            Logger.log("Thing: " + request.getAttribute("frame1").toString());
-        }
-        
-        request.getRequestDispatcher("Display.jsp").forward(request, response);
+        //request.getRequestDispatcher("Create.jsp").forward(request, response);
+        Logger.log("things work");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
