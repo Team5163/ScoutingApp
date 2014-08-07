@@ -59,7 +59,7 @@ public class Server extends HttpServlet {
         
         if(request.getParameter("frame1") != null){
             request.setAttribute("frame1", request.getParameter("frame1"));
-            Logger.log("Thing: " + request.getAttribute("frame1").toString());
+            //Logger.log("Thing: " + request.getAttribute("frame1").toString());
         }
         
         request.getRequestDispatcher("Display.jsp").forward(request, response);

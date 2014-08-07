@@ -52,7 +52,7 @@
             } else {
             %> 
             <form method="POST" action="Server">
-                <input type="hidden" name="frame1" value="CreateAccount.jsp" />
+                <input type="hidden" name="frame1" value="Login/CreateAccount.jsp" />
                 <input type="submit" value="Create Account" />
             </form>
             <form method="POST" action="Login">

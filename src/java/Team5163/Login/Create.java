@@ -7,6 +7,7 @@
 package Team5163.Login;
 
 import Team5163.Logger.Logger;
+import Team5163.ObjectRegestry;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -31,7 +32,11 @@ public class Create extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //request.getRequestDispatcher("Create.jsp").forward(request, response);
-        Logger.log("things work");
+        String name = request.getParameter("user");
+        String pass = request.getParameter("pass");
+        ObjectRegestry.getLoginData().addUser(name, pass);
+        Logger.log("Account added with name: \"" + name + "\" with pass \"" + pass + "\"");
+        ObjectRegestry.getLoginData().listUser();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

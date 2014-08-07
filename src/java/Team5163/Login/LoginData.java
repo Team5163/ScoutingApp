@@ -30,11 +30,11 @@ import org.xml.sax.SAXException;
  */
 public class LoginData {
     
-    Map<String, Integer> mapOfUser = new HashMap<>();
-    String filePath = ObjectRegestry.getWorkingDir() + "\\users.xml";
-    DocumentBuilderFactory docFactory;
-    DocumentBuilder docBuilder;
-    Document doc;
+    private Map<String, Integer> mapOfUser = new HashMap<>();
+    private String filePath = ObjectRegestry.getWorkingDir() + "\\users.xml";
+    private DocumentBuilderFactory docFactory;
+    private DocumentBuilder docBuilder;
+    private Document doc;
     
     public LoginData(){
         try {
@@ -69,4 +69,18 @@ public class LoginData {
         return false;
     }
     
+    public void addUser(String name, String password){
+        if(mapOfUser.containsKey(name)){
+            mapOfUser.remove(name);
+        }
+        mapOfUser.put(name, password.hashCode());
+    }
+    
+    public void listUser(){
+        log("--------------------Begin to list User--------------------------");
+        for(Map.Entry<String, Integer> entry : mapOfUser.entrySet()){
+            log("User: \"" + entry.getKey() + "\" with hash: \"" + entry.getValue().toString() + "\"");
+        }
+        log("---------------------Done listing User--------------------------");
+    }
 }
