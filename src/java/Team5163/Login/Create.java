@@ -37,6 +37,7 @@ public class Create extends HttpServlet {
         ObjectRegestry.getLoginData().addUser(name, pass);
         Logger.log("Account added with name: \"" + name + "\" with pass \"" + pass + "\"");
         ObjectRegestry.getLoginData().listUser();
+        request.getRequestDispatcher("Login/Success.html").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

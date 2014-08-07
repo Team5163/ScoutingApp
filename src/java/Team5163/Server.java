@@ -48,13 +48,15 @@ public class Server extends HttpServlet {
 //            out.println("</html>");
 //        }
         //request.setAttribute("data", new DataBase());
-        Team5163.Logger.Logger.log("new client");
+        Team5163.Logger.Logger.log("New client with ip: " + request.getRemoteAddr());
         if(request.getSession().getAttribute("login") == null){
             request.getSession().setAttribute("login", "false");
         }
         
-        if(request.getParameter("keepin") == "false"){
-            request.getSession().setAttribute("login", "false");
+        if(request.getParameter("keepin") != null){
+            if(request.getParameter("keepin").equalsIgnoreCase("false")){
+                request.getSession().setAttribute("login", "false");
+            }
         }
         
         if(request.getParameter("frame1") != null){
@@ -62,7 +64,7 @@ public class Server extends HttpServlet {
             //Logger.log("Thing: " + request.getAttribute("frame1").toString());
         }
         
-        request.getRequestDispatcher("Display.jsp").forward(request, response);
+        request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

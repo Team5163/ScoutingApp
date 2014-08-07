@@ -33,18 +33,18 @@ public class Login extends HttpServlet {
             throws ServletException, IOException {
         String name = request.getParameter("user");
         String pass = request.getParameter("pass");
-        Logger.log("User: \"" + name + "\" Tried to login using pass: \"" + pass + "\"");
-        Logger.log(ObjectRegestry.getWorkingDir());
+        //Logger.log("User: \"" + name + "\" Tried to login using pass: \"" + pass + "\"");
+        //Logger.log(ObjectRegestry.getWorkingDir());
         if (ObjectRegestry.getLoginData().checkUser(name, pass)) {
-            Logger.log("Welcome user");
+            Logger.log("User: \"" + name + "\" Successfuly logined using pass: \"" + pass + "\"");
             request.getSession().setAttribute("login", "true");
             request.getSession().setAttribute("name", name);
-            request.getRequestDispatcher("Display.jsp").forward(request, response);
+            request.getRequestDispatcher("Server").forward(request, response);
         } else {
             //Logger.log(System.getProperty("user.dir"));
-            Logger.log("you idieot");
+            Logger.log("User: \"" + name + "\" Fail to login using pass: \"" + pass + "\"");
             request.getSession().setAttribute("login", "false");
-            request.getRequestDispatcher("Display.jsp").forward(request, response);
+            request.getRequestDispatcher("Server").forward(request, response);
         }
     }
 
@@ -59,12 +59,14 @@ public class Login extends HttpServlet {
     
     @Override
     public void init(){
-        Logger.log("Start");
+        //Logger.log("Start");
+        ObjectRegestry.getLoginData().start();
     }
     
     @Override
     public void destroy(){
-        Logger.log("destory");
+        //Logger.log("destory");
+        ObjectRegestry.getLoginData().stop();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
