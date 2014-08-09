@@ -24,6 +24,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -66,6 +67,9 @@ public class LoginData {
     }
 
     public void start() {
+        DocumentBuilderFactory docFactory;
+        DocumentBuilder docBuilder;
+        Document doc;
         if (!started) {
             try {
                 docFactory = DocumentBuilderFactory.newInstance();
@@ -96,9 +100,25 @@ public class LoginData {
     }
 
     public void stop() {
+        DocumentBuilderFactory docFactory;
+        DocumentBuilder docBuilder;
+        Document doc;
+        
         if (started) {
             try {
+                docFactory = DocumentBuilderFactory.newInstance();
+                docBuilder = docFactory.newDocumentBuilder();
+                doc = docBuilder.newDocument();
                 
+                Element rootElement = doc.createElement("LoginData");
+                doc.appendChild(rootElement);
+                
+                for (Map.Entry<String, Integer> entry : mapOfUser.entrySet()) {
+                    Element users = doc.createElement("User");
+                    users.setAttribute("name", entry.getKey());
+                    users.setTextContent(entry.getValue().toString());
+                    rootElement.appendChild(users);
+                }
                 //doc.createElement("User").setTextContent("hash");.setAttribute("naem", "username");
                 TransformerFactory transformerFactory = TransformerFactory.newInstance();
                 Transformer transformer = transformerFactory.newTransformer();
@@ -118,6 +138,9 @@ public class LoginData {
     }
 
     public boolean checkUser(String name, String password) {
+        if (!started){
+            this.start();
+        }
         if (mapOfUser.containsKey(name)) {
             if (mapOfUser.get(name) == password.hashCode()) {
                 return true;
@@ -127,6 +150,9 @@ public class LoginData {
     }
 
     public void addUser(String name, String password) {
+        if (!started){
+            this.start();
+        }
         if (mapOfUser.containsKey(name)) {
             mapOfUser.remove(name);
         }

@@ -36,13 +36,13 @@ public class Login extends HttpServlet {
         //Logger.log("User: \"" + name + "\" Tried to login using pass: \"" + pass + "\"");
         //Logger.log(ObjectRegestry.getWorkingDir());
         if (ObjectRegestry.getLoginData().checkUser(name, pass)) {
-            Logger.log("User: \"" + name + "\" Successfuly logined using pass: \"" + pass + "\"");
+            Logger.log("User: \"" + name + "\" Successfuly logined using pass: \"" + pass.hashCode() + "\"");
             request.getSession().setAttribute("login", "true");
             request.getSession().setAttribute("name", name);
             request.getRequestDispatcher("Server").forward(request, response);
         } else {
             //Logger.log(System.getProperty("user.dir"));
-            Logger.log("User: \"" + name + "\" Fail to login using pass: \"" + pass + "\"");
+            Logger.log("User: \"" + name + "\" Fail to login using pass: \"" + pass.hashCode() + "\"");
             request.getSession().setAttribute("login", "false");
             request.getRequestDispatcher("Server").forward(request, response);
         }

@@ -4,11 +4,10 @@
  * and open the template in the editor.
  */
 
-package Team5163.Login;
+package Team5163.DataBase;
 
-import Team5163.Logger.Logger;
-import Team5163.ObjectRegestry;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Yiwen Dong
  */
-public class Create extends HttpServlet {
+public class Data extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,13 +30,10 @@ public class Create extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //request.getRequestDispatcher("Create.jsp").forward(request, response);
-        String name = request.getParameter("user");
-        String pass = request.getParameter("pass");
-        ObjectRegestry.getLoginData().addUser(name, pass);
-        Logger.log("Account added with name: \"" + name + "\" with pass \"" + pass.hashCode() + "\"");
-        ObjectRegestry.getLoginData().listUser();
-        request.getRequestDispatcher("Login/Success.html").forward(request, response);
+        int teamNumber;
+            if(request.getParameter("team") != null && request.getParameter("type")){
+                
+            }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

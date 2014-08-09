@@ -12,6 +12,10 @@
         <servlet-name>Create</servlet-name>
         <servlet-class>Team5163.Login.Create</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Data</servlet-name>
+        <servlet-class>Team5163.DataBase.Data</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Server</servlet-name>
         <url-pattern>/Server</url-pattern>
@@ -26,6 +30,10 @@
     <servlet-mapping>
         <servlet-name>Create</servlet-name>
         <url-pattern>/Create</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Data</servlet-name>
+        <url-pattern>/Data</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

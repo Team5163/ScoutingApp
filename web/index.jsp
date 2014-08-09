@@ -23,6 +23,9 @@
         } else {
             frame1 = "logo.png";
         }
+        if(request.getSession().getAttribute("login") == null) {
+            request.getSession().setAttribute("login", "false");
+        }
         %>
         <div id="logo">
             <img src="logo.png" id="logoimage" />
