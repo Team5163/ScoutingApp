@@ -25,6 +25,13 @@
     border-right: thick solid #000000;
 }
 
+#teamListFrame {
+    height: 150px;
+    width: 95%;
+    margin-left: 5%;
+    border: 0;
+}
+
 #login {
     position: absolute;
     left: 0px;

@@ -16,6 +16,16 @@
         <link rel="stylesheet" href="style.css" />
     </head>
     <body>
+        <script>
+            var URLCreate = "Login/CreateAccount.jsp";
+            var URLTeamList = "Data?type=teamList&teamNumber=11";
+            function setFrame1(url){
+                document.getElementById("frame1").setAttribute("src", url);
+            }
+            function setTeamList(url){
+                document.getElementById("teamListFrame").setAttribute("src", url)
+            }
+        </script>
         <%  DataBase data = ObjectRegestry.getDataBase(); 
         String frame1;
         if(request.getAttribute("frame1") != null){
@@ -38,10 +48,11 @@
         </div>
         <div id="teamList">
             <form method="POST" action="processsearch.jsp">
-                <input type="text" placeholder="Team Number" />
+                <input type="text" placeholder="Team Number" oninput="setTeamList(URLTeamList)"/>
                 <input type="submit" value="Go" />
             </form>
             <!-- Generate list of team numbers here -->
+            <iframe id="teamListFrame" src="Data" width="90%" seamless></iframe>
         </div>
         <div id="login">
             <% if (request.getSession().getAttribute("login").toString().equalsIgnoreCase("true")) {
@@ -58,6 +69,7 @@
                 <input type="hidden" name="frame1" value="Login/CreateAccount.jsp" />
                 <input type="submit" value="Create Account" />
             </form>
+            <input type="button" value="Better" onclick=" setFrame1(URLCreate); " />
             <form method="POST" action="Login">
                 <input type="text" placeholder="Username" name="user" /><br />
                 <input type="password"  placeholder = "Password" name = "pass" />
@@ -67,7 +79,7 @@
                 } %>
         </div>
         <div id="info">
-            <iframe src="<%= frame1 %>"></iframe>
+            <iframe src="<%= frame1 %>" id="frame1"></iframe>
             <table>
                 <% List<String> strings = data.getAllData();
                     for (int a = 0; a < strings.size(); a++) {

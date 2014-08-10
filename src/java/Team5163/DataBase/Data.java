@@ -6,6 +6,7 @@
 
 package Team5163.DataBase;
 
+import Team5163.Logger.Logger;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -30,9 +31,22 @@ public class Data extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int teamNumber;
-            if(request.getParameter("team") != null && request.getParameter("type")){
-                
+        String requestType = request.getParameter("type");
+            if(requestType != null){
+                if(requestType.equalsIgnoreCase("teamList")){
+                    //return list of teams.
+                    int teamNumber = Integer.valueOf(request.getParameter("teamNumber"));
+                    request.setAttribute("1", (int)Math.floor(Math.random() * 10000));
+                    request.setAttribute("2", (int)Math.floor(Math.random() * 10000));
+                    request.setAttribute("3", (int)Math.floor(Math.random() * 10000));
+                    request.setAttribute("4", (int)Math.floor(Math.random() * 10000));
+                    request.setAttribute("5", (int)Math.floor(Math.random() * 10000));
+                    request.getRequestDispatcher("Data/TeamList.jsp").forward(request, response);
+                    //search database from a partial complete number 
+                }
+                if(requestType.equalsIgnoreCase("viewPage")){
+                    Logger.log("Getting page for team: " + request.getAttribute("teamNumber"));
+                }
             }
     }
 
