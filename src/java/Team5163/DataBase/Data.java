@@ -45,7 +45,7 @@ public class Data extends HttpServlet {
                     //search database from a partial complete number 
                 }
                 if(requestType.equalsIgnoreCase("viewPage")){
-                    Logger.log("Getting page for team: " + request.getAttribute("teamNumber"));
+                    Logger.log("Getting page for team: " + request.getParameter("teamNumber"));
                 }
             }
     }

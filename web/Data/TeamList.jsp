@@ -31,9 +31,8 @@
             function getTable(){
                 var data = "";
                 for(a = 1; a < 6; a++){
-                    data = data + "<tr><td><a href=\"#\" onclick=\"setFrame1(\"Data?type=viewPage&teamNumber=" + numbers[a] + "\" >" + numbers[a] + "</a></td></tr>";
+                    data = data + "<tr><td><a href=\"#\" onclick=\"setFrame1('Data?type=viewPage&amp;teamNumber=" + numbers[a] + "\');\" >" + numbers[a] + "</a></td></tr>";
                 }
-                console.log(data);
                 return data;
             }
         </script>
