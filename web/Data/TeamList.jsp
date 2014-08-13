@@ -15,7 +15,7 @@
         <script>
             var URLCreate = "./Login/CreateAccount.jsp";
             var URLTeamList = "Data?type=teamList&teamNumber=11";
-            var url = [];
+            //var url = [];
             var numbers = [];
             function setFrame1(url){
                 parent.document.getElementById("frame1").setAttribute("src", url);
@@ -25,8 +25,7 @@
             }
                     <% for(int a = 1; a < 6; a++){
                         String number = request.getAttribute(a + "").toString();
-                        %>  numbers[<%= a %>] = "<%= number %>";
-                            url[<%= a %>] = "Data?type=viewPage&teamNumber=11" + "<%= number %>";<%
+                        %>  numbers[<%= a %>] = "<%= number %>";<%
                     } %>
             function getTable(){
                 var data = "";

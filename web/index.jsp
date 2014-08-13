@@ -28,6 +28,13 @@
         </script>
         <%  DataBase data = ObjectRegestry.getDataBase(); 
         String frame1;
+        
+        //class can be button, currentButton, or grayButton
+        String viewClass = "currentButton";
+        String editClass = "botton";
+        String compareClass = "botton";
+        String aboutClass = "botton";
+        
         if(request.getAttribute("frame1") != null){
             frame1 = request.getAttribute("frame1").toString();
         } else {
@@ -35,6 +42,30 @@
         }
         if(request.getSession().getAttribute("login") == null) {
             request.getSession().setAttribute("login", "false");
+        }
+        if(request.getSession().getAttribute("mode") == null) {
+            request.getSession().setAttribute("mode", "view");
+        }
+        if(request.getSession().getAttribute("mode") == "view"){
+            viewClass = "currentButton";
+            editClass = "botton";
+            compareClass = "botton";
+            aboutClass = "botton";
+        } else if(request.getSession().getAttribute("mode") == "edit"){
+            viewClass = "button";
+            editClass = "currentBotton";
+            compareClass = "botton";
+            aboutClass = "botton";
+        } else if(request.getSession().getAttribute("mode") == "compare"){
+            viewClass = "button";
+            editClass = "botton";
+            compareClass = "currentBotton";
+            aboutClass = "botton";
+        } else if (request.getSession().getAttribute("mode") == "about"){
+            viewClass = "button";
+            editClass = "botton";
+            compareClass = "botton";
+            aboutClass = "currentBotton";
         }
         %>
         <div id="logo">
@@ -52,7 +83,7 @@
                 <input type="submit" value="Go" />
             </form>
             <!-- Generate list of team numbers here -->
-            <iframe id="teamListFrame" src="Data" width="90%" seamless></iframe>
+            <iframe id="teamListFrame" src="Data" seamless></iframe>
         </div>
         <div id="login">
             <% if (request.getSession().getAttribute("login").toString().equalsIgnoreCase("true")) {
@@ -65,11 +96,8 @@
             <%
             } else {
             %> 
-            <form method="POST" action="Server">
-                <input type="hidden" name="frame1" value="Login/CreateAccount.jsp" />
-                <input type="submit" value="Create Account" />
-            </form>
-            <input type="button" value="Better" onclick=" setFrame1(URLCreate); " />
+            <a onclick="setFrame1(URLCreate);" href="#">Create Account</a>
+            <!--<input type="button" value="Better" onclick=" setFrame1(URLCreate); " /> -->
             <form method="POST" action="Login">
                 <input type="text" placeholder="Username" name="user" /><br />
                 <input type="password"  placeholder = "Password" name = "pass" />
@@ -77,6 +105,14 @@
             </form>  
             <%
                 } %>
+        </div>
+        <div id="topBar">
+            <ul>
+                <li><a href="#" class="<jsp:expression>viewClass</jsp:expression>">View</a></li>
+                <li><a href="#" class="<jsp:expression>editClass</jsp:expression>">Edit</a></li>
+                <li><a href="#" class="<jsp:expression>compareClass</jsp:expression>">Compare</a></li>
+                <li><a href="#" class="<jsp:expression>aboutClass</jsp:expression>">About</a></li>
+            </ul>
         </div>
         <div id="info">
             <iframe src="<%= frame1 %>" id="frame1"></iframe>
