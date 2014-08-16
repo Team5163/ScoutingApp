@@ -20,6 +20,9 @@
             function setFrame1(url){
                 parent.document.getElementById("frame1").setAttribute("src", url);
             }
+            function setFrame2(url){
+                parent.document.getElementById("frame2").setArrribute("src", url);
+            }
             function setTeamList(url){
                 parent.document.getElementById("teamListFrame").setAttribute("src", url)
             }
@@ -28,12 +31,21 @@
                         %>  numbers[<%= a %>] = "<%= number %>";<%
                     } %>
             function getTable(){
+                <% if(request.getSession().getAttribute("mode").toString().equalsIgnoreCase("compare")){ %>
                 var data = "";
+                for(a = 1; a < 6; a++){
+                    data = data + "<tr><td><a href=\"#\" onclick=\"setFrame1('Data?type=viewPage&amp;teamNumber=" + numbers[a] + "\');\" >" + numbers[a] + "</a></td><td><a href=\"#\" onclick=\"setFrame2('Data?type=viewPage&amp;teamNumber=" + numbers[a] + "\');\" >" + numbers[a] + "</a></td></tr>";
+                }
+                return data;
+                }
+               <%} else {%> 
+               var data = "";
                 for(a = 1; a < 6; a++){
                     data = data + "<tr><td><a href=\"#\" onclick=\"setFrame1('Data?type=viewPage&amp;teamNumber=" + numbers[a] + "\');\" >" + numbers[a] + "</a></td></tr>";
                 }
                 return data;
-            }
+                }
+               <%} %>
         </script>
         <table id="table">
             <tr></tr>

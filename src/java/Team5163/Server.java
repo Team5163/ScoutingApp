@@ -64,6 +64,10 @@ public class Server extends HttpServlet {
             //Logger.log("Thing: " + request.getAttribute("frame1").toString());
         }
         
+        if(request.getParameter("mode") != null){
+            request.getSession().setAttribute("mode", request.getParameter("mode"));
+        }
+        
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 

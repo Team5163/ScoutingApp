@@ -31,9 +31,9 @@
         
         //class can be button, currentButton, or grayButton
         String viewClass = "currentButton";
-        String editClass = "botton";
-        String compareClass = "botton";
-        String aboutClass = "botton";
+        String editClass = "clickableButton";
+        String compareClass = "clickableButton";
+        String aboutClass = "clickableButton";
         
         if(request.getAttribute("frame1") != null){
             frame1 = request.getAttribute("frame1").toString();
@@ -46,26 +46,26 @@
         if(request.getSession().getAttribute("mode") == null) {
             request.getSession().setAttribute("mode", "view");
         }
-        if(request.getSession().getAttribute("mode") == "view"){
+        if(request.getSession().getAttribute("mode").toString().equalsIgnoreCase("view")){
             viewClass = "currentButton";
-            editClass = "botton";
-            compareClass = "botton";
-            aboutClass = "botton";
-        } else if(request.getSession().getAttribute("mode") == "edit"){
-            viewClass = "button";
-            editClass = "currentBotton";
-            compareClass = "botton";
-            aboutClass = "botton";
-        } else if(request.getSession().getAttribute("mode") == "compare"){
-            viewClass = "button";
-            editClass = "botton";
-            compareClass = "currentBotton";
-            aboutClass = "botton";
-        } else if (request.getSession().getAttribute("mode") == "about"){
-            viewClass = "button";
-            editClass = "botton";
-            compareClass = "botton";
-            aboutClass = "currentBotton";
+            editClass = "clickableButton";
+            compareClass = "clickableButton";
+            aboutClass = "clickableButton";
+        } else if(request.getSession().getAttribute("mode").toString().equalsIgnoreCase("edit")){
+            viewClass = "clickableButton";
+            editClass = "currentButton";
+            compareClass = "clickableButton";
+            aboutClass = "clickableButton";
+        } else if(request.getSession().getAttribute("mode").toString().equalsIgnoreCase("compare")){
+            viewClass = "clickableButton";
+            editClass = "clickableButton";
+            compareClass = "currentButton";
+            aboutClass = "clickableButton";
+        } else if (request.getSession().getAttribute("mode").toString().equalsIgnoreCase("about")){
+            viewClass = "clickableButton";
+            editClass = "clickableButton";
+            compareClass = "clickableButton";
+            aboutClass = "currentButton";
         }
         %>
         <div id="logo">
@@ -108,10 +108,10 @@
         </div>
         <div id="topBar">
             <ul>
-                <li><a href="#" class="<jsp:expression>viewClass</jsp:expression>">View</a></li>
-                <li><a href="#" class="<jsp:expression>editClass</jsp:expression>">Edit</a></li>
-                <li><a href="#" class="<jsp:expression>compareClass</jsp:expression>">Compare</a></li>
-                <li><a href="#" class="<jsp:expression>aboutClass</jsp:expression>">About</a></li>
+                <li><a href="Server?mode=view" class="<jsp:expression>viewClass</jsp:expression>">View</a></li>
+                <li><a href="Server?mode=edit" class="<jsp:expression>editClass</jsp:expression>">Edit</a></li>
+                <li><a href="Server?mode=compare" class="<jsp:expression>compareClass</jsp:expression>">Compare</a></li>
+                <li><a href="Server?mode=about" class="<jsp:expression>aboutClass</jsp:expression>">About</a></li>
             </ul>
         </div>
         <div id="info">
