@@ -28,6 +28,7 @@
         </script>
         <%  DataBase data = ObjectRegestry.getDataBase(); 
         String frame1;
+        String frame2;
         
         //class can be button, currentButton, or grayButton
         String viewClass = "currentButton";
@@ -35,11 +36,6 @@
         String compareClass = "clickableButton";
         String aboutClass = "clickableButton";
         
-        if(request.getAttribute("frame1") != null){
-            frame1 = request.getAttribute("frame1").toString();
-        } else {
-            frame1 = "logo.png";
-        }
         if(request.getSession().getAttribute("login") == null) {
             request.getSession().setAttribute("login", "false");
         }
@@ -66,6 +62,16 @@
             editClass = "clickableButton";
             compareClass = "clickableButton";
             aboutClass = "currentButton";
+        }
+        if(request.getAttribute("frame1") != null){
+            frame1 = request.getAttribute("frame1").toString();
+        } else {
+            frame1 = "logo.png";
+        }
+        if(request.getAttribute("frame2") != null){
+            frame2 = request.getAttribute("frame2").toString();
+        } else {
+            frame2 = "logo.png";
         }
         %>
         <div id="logo">
@@ -115,8 +121,14 @@
             </ul>
         </div>
         <div id="info">
-            <iframe src="<%= frame1 %>" id="frame1"></iframe>
-            <table>
+        <% if(request.getSession().getAttribute("mode").toString().equalsIgnoreCase("compare")){%>
+        <iframe src="<%= frame1 %>" id="frame1" class="framesThin"></iframe>
+        <iframe src="<%= frame2 %>" id="frame2" class="framesThin"></iframe>
+        <%} else {%>
+        <iframe src="<%= frame1 %>" id="frame1" class="framesWide"></iframe>
+        <%} %>
+            
+        <table hidden>
                 <% List<String> strings = data.getAllData();
                     for (int a = 0; a < strings.size(); a++) {
                 %>

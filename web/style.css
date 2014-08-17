@@ -1,10 +1,14 @@
+html {
+    overflow: hidden;
+}
+
 #info {
     position: absolute;
     margin-top: 7%;
     height: 84.5%;
     left: 15.3%;
     width: 84.7%;
-    overflow-y: scroll;
+    overflow-y: hidden;
 }
 
 #logo {
@@ -163,6 +167,28 @@ ul li a:hover {
     background-color: gray;
 }
 
-#frame1 {
-    width: 50%;
+.framesThin {
+    width: 47%;
+    height: 95%;
+    margin: 15px 0px 0px 25px;
+    border: 2px;
+    border-color: black;
+    border-style: dotted;
+    border-radius: 15px;
+    overflow: hidden;
+    scrolling: no;
+    frameborder: 0;
+}
+
+.framesWide {
+    width: 95%;
+    height: 95%;
+    margin: 15px 0px 0px 25px;
+    border: 2px;
+    border-color: black;
+    border-style: dotted;
+    border-radius: 15px;
+    overflow: hidden;
+    scrolling: no;
+    frameborder: 0;
 }

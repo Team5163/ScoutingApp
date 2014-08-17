@@ -47,8 +47,10 @@ public class Server extends HttpServlet {
 //            out.println("</body>");
 //            out.println("</html>");
 //        }
+        if(request.getSession().isNew()){
+            Team5163.Logger.Logger.log("New client with ip: " + request.getRemoteAddr() + " With: " + request.getHeader("User-Agent"));
+        }
         //request.setAttribute("data", new DataBase());
-        Team5163.Logger.Logger.log("New client with ip: " + request.getRemoteAddr());
         if(request.getSession().getAttribute("login") == null){
             request.getSession().setAttribute("login", "false");
         }
