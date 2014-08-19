@@ -35,4 +35,25 @@ public class DataBase{
     public String getData(int teamNumber, String field){
         return "";
     }
+    
+    public String[] getTeam(int number){
+        String[] thing = new String[5];
+        return thing;
+    }
+    
+    public boolean haveTeam(){
+        return false;
+    }
+    
+    public void setData(int teamNumber, String field, String data){
+        
+    }
+    
+    public boolean haveData(int teamNumber, String field){
+        return false;
+    }
+    
+    public void createTeam(int number){
+        
+    }
 }

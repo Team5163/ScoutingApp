@@ -66,12 +66,12 @@
         if(request.getAttribute("frame1") != null){
             frame1 = request.getAttribute("frame1").toString();
         } else {
-            frame1 = "logo.png";
+            frame1 = "Data/Logo.html";
         }
         if(request.getAttribute("frame2") != null){
             frame2 = request.getAttribute("frame2").toString();
         } else {
-            frame2 = "logo.png";
+            frame2 = "Data/Logo.html";
         }
         %>
         <div id="logo">
@@ -117,7 +117,7 @@
                 <li><a href="Server?mode=view" class="<jsp:expression>viewClass</jsp:expression>">View</a></li>
                 <li><a href="Server?mode=edit" class="<jsp:expression>editClass</jsp:expression>">Edit</a></li>
                 <li><a href="Server?mode=compare" class="<jsp:expression>compareClass</jsp:expression>">Compare</a></li>
-                <li><a href="Server?mode=about" class="<jsp:expression>aboutClass</jsp:expression>">About</a></li>
+                <li><a href="Server?mode=about&frame1=about.html" class="<jsp:expression>aboutClass</jsp:expression>">About</a></li>
             </ul>
         </div>
         <div id="info">

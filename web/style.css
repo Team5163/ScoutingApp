@@ -170,7 +170,7 @@ ul li a:hover {
 .framesThin {
     width: 47%;
     height: 95%;
-    margin: 15px 0px 0px 25px;
+    margin: 1.5% 0px 0px 2%;
     border: 2px;
     border-color: black;
     border-style: dotted;
@@ -181,9 +181,9 @@ ul li a:hover {
 }
 
 .framesWide {
-    width: 95%;
+    width: 96.45%;
     height: 95%;
-    margin: 15px 0px 0px 25px;
+    margin: 1.5% 0px 0px 2%;
     border: 2px;
     border-color: black;
     border-style: dotted;
