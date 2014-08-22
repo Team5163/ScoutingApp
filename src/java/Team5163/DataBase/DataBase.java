@@ -25,16 +25,16 @@ import javax.sql.DataSource;
 
 /**
  *
- * @author Yiwen Dong
+ * @author Rish Shadra
  */
 @WebServlet(name = "DataBase", urlPatterns = {"/DataBase"})
 public class DataBase{
     private Connection connection;
-    private PreparedStatement pstatement;
+    //private PreparedStatement pstatement;
     private Statement statement;
-    private ResultSet result;
+    //private ResultSet result;
     private int length;
-    private String[] resultarr;
+    //private String[] resultarr;
     private Context initialContext;
     private DataSource datasource;
     
@@ -81,10 +81,6 @@ public class DataBase{
         //System.out.println("test");
         //System.err.println("Test");
     }
-    public int getFieldColumn() {
-    
-        return 0;
-    }
     
     public int getLength() {
     
@@ -99,8 +95,22 @@ public class DataBase{
         return length;
     }
     
-    public String getData(int teamNumber, String field){
-        String data;
+    
+    public int getLength(String query) {
+    
+        try {
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            resultSet.last();    
+            length = resultSet.getRow();
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return length;
+    }
+    
+    public String getData(String teamNumber, String field){
+        String data = null;
         try {
             statement = connection.createStatement();
         } catch (SQLException ex) {
@@ -115,8 +125,8 @@ public class DataBase{
         }
         for (int i = 0; i < getLength(); i++) {
             try {
-                if (Integer.parseInt(rs.getString("teamnum")) == teamNumber) {
-                    return rs.getString(field);
+                if (rs.getString("teamnum").equals(teamNumber)) {
+                    data = rs.getString(field);
                 } else {
                     rs.next();
                 }
@@ -124,29 +134,75 @@ public class DataBase{
                 Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return "";
+        return data;
     }
     
-    public String[] findTeam(int number){
-        String[] match = new String[5];
-        return match;
+    public String[] findTeam(String number){
+            String[] result = new String[getLength("SELECT * FROM teamdata WHERE teamnum LIKE '" + number + "%' ORDER BY ABS(teamnum)")];
+            ResultSet rs = null;
+        try {
+            //DONE! Make this work with SQL queries and less for loops. Fsck for loops.
+
+            //if (number.length() > 4) {
+            //    return null;
+            //}
+            statement = connection.createStatement();
+            
+                rs = statement.executeQuery("SELECT * FROM teamdata WHERE teamnum LIKE '" + number + "%' ORDER BY ABS(teamnum)");
+                //SELECT * FROM teamdata WHERE teamnum LIKE '%00%' ORDER BY ABS(teamnum);
+                //rs.next();
+            int i = 0;
+            while (rs.next()) {
+                //if (rs.getString("teamnum") != null) {
+                result[i] = rs.getString("teamnum");
+                i++;
+                //}
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return result;
     }
     
-    public boolean haveTeam(){
-        return false;
+    public boolean haveTeam(String teamNumber){
+    
+    return getLength("SELECT * FROM teamdata WHERE teamnum=" + teamNumber) != 0;
+    //Does this thing need quotes or what?
     }
     
     public void setData(int teamNumber, String field, String data){
-        
+        PreparedStatement ps = null;
+        try {
+            ps = connection.prepareStatement("INSERT INTO teamdata (" + field + ") VALUES ('" + data + "')");
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
     
-    public boolean haveData(int teamNumber, String field){
-        return false;
+    public boolean haveData(String teamNumber, String field){
+        ResultSet rs;
+        Boolean wasNull = null;
+        // The irony... 
+        try {
+            statement = connection.createStatement();
+            rs = statement.executeQuery("SELECT * FROM teamdata WHERE teamnum=" + teamNumber);
+            rs.next();
+            //Do I need quotes on that statement? Stay tuned for the next episode of TESTING!
+            rs.getString(field);
+            wasNull = rs.wasNull();
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return !wasNull;
     }
     
-    public void createTeam(int number){
-        
-    }
+    /*public void createTeam(int number){
+        DEPRICATED. Use setData with field teamnum instead.
+    }*/
     
     public void close() {
         try {
