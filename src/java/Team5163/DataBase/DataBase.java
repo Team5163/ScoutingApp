@@ -95,6 +95,20 @@ public class DataBase{
         return length;
     }
     
+    
+    public int getLength(String query) {
+    
+        try {
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            resultSet.last();    
+            length = resultSet.getRow();
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return length;
+    }
+    
     public String getData(int teamNumber, String field){
         String data;
         try {
@@ -124,6 +138,7 @@ public class DataBase{
     }
     
     public String[] findTeam(int number){
+        //TO DO! Make this work with SQL queries and less for loops. Fsck for loops.
         int removed = 0;
         ArrayList<String> teams = new ArrayList();
         String numstring = String.valueOf(number);
@@ -172,8 +187,10 @@ public class DataBase{
         return match;
     }
     
-    public boolean haveTeam(){
-        return false;
+    public boolean haveTeam(int teamNumber){
+    
+    return getLength("SELECT * FROM teamdata WHERE teamnum=" + teamNumber) != 0;
+    
     }
     
     public void setData(int teamNumber, String field, String data){
