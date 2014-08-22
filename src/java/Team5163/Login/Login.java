@@ -7,7 +7,7 @@ package Team5163.Login;
 
 import Team5163.Logger.Logger;
 import static Team5163.Logger.Logger.log;
-import Team5163.ObjectRegestry;
+import Team5163.ObjectRegistry;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -35,7 +35,7 @@ public class Login extends HttpServlet {
         String pass = request.getParameter("pass");
         //Logger.log("User: \"" + name + "\" Tried to login using pass: \"" + pass + "\"");
         //Logger.log(ObjectRegestry.getWorkingDir());
-        if (ObjectRegestry.getLoginData().checkUser(name, pass)) {
+        if (ObjectRegistry.getLoginData().checkUser(name, pass)) {
             Logger.log("User: \"" + name + "\" Successfuly logined using pass: \"" + pass.hashCode() + "\"");
             request.getSession().setAttribute("login", "true");
             request.getSession().setAttribute("name", name);
@@ -60,13 +60,13 @@ public class Login extends HttpServlet {
     @Override
     public void init(){
         //Logger.log("Start");
-        ObjectRegestry.getLoginData().start();
+        ObjectRegistry.getLoginData().start();
     }
     
     @Override
     public void destroy(){
         //Logger.log("destory");
-        ObjectRegestry.getLoginData().stop();
+        ObjectRegistry.getLoginData().stop();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -7,7 +7,7 @@
 package Team5163.Login;
 
 import Team5163.Logger.Logger;
-import Team5163.ObjectRegestry;
+import Team5163.ObjectRegistry;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -34,9 +34,9 @@ public class Create extends HttpServlet {
         //request.getRequestDispatcher("Create.jsp").forward(request, response);
         String name = request.getParameter("user");
         String pass = request.getParameter("pass");
-        ObjectRegestry.getLoginData().addUser(name, pass);
+        ObjectRegistry.getLoginData().addUser(name, pass);
         Logger.log("Account added with name: \"" + name + "\" with pass \"" + pass.hashCode() + "\"");
-        ObjectRegestry.getLoginData().listUser();
+        ObjectRegistry.getLoginData().listUser();
         request.getRequestDispatcher("Login/Success.html").forward(request, response);
     }
 

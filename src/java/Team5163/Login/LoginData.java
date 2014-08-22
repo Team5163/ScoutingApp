@@ -6,7 +6,7 @@
 package Team5163.Login;
 
 import static Team5163.Logger.Logger.log;
-import Team5163.ObjectRegestry;
+import Team5163.ObjectRegistry;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -37,7 +37,7 @@ public class LoginData {
 
     private boolean started = false;
     private Map<String, Integer> mapOfUser = new HashMap<>();
-    private String filePath = ObjectRegestry.getWorkingDir() + "\\users.xml";
+    private String filePath = ObjectRegistry.getWorkingDir() + "\\users.xml";
     private DocumentBuilderFactory docFactory;
     private DocumentBuilder docBuilder;
     private Document doc;
