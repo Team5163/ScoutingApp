@@ -125,7 +125,7 @@ public class DataBase{
         }
         for (int i = 0; i < getLength(); i++) {
             try {
-                if (Integer.parseInt(rs.getString("teamnum")) == teamNumber) {
+                if (rs.getString("teamnum").equals(teamNumber)) {
                     data = rs.getString(field);
                 } else {
                     rs.next();
@@ -138,56 +138,31 @@ public class DataBase{
     }
     
     public String[] findTeam(String number){
-        //TO DO! Make this work with SQL queries and less for loops. Fsck for loops.
-        int removed = 0;
-        ArrayList<String> teams = new ArrayList();
-        
+            String[] result = new String[getLength("SELECT * FROM teamdata WHERE teamnum LIKE '" + number + "%'")];
+            ResultSet rs = null;
         try {
-            statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT * FROM teamdata");
-            rs.next();
-            for (int i = 0; i < getLength(); i++) {
-                if (String.valueOf(rs.getString("teamnum").charAt(0)).equals(String.valueOf(number.charAt(0)))) {
-                    teams.add(rs.getString("teamnum"));
-                }
-            }
-            
-            if (number.length() > 1) {
-                for (int i = 0; i < teams.size(); i++) {
-                    if (!String.valueOf(number.charAt(1)).equals(String.valueOf(teams.get(i - removed).charAt(1)))) {
-                        removed++;
-                        teams.remove(i - removed);
-                    }
-                }
-            }
-            removed = 0;
-            if (number.length() > 2) {
-                for (int i = 0; i < teams.size(); i++) {
-                    if (!String.valueOf(number.charAt(2)).equals(String.valueOf(teams.get(i - removed).charAt(2)))) {
-                        removed++;
-                        teams.remove(i - removed);
-                    }
-                }
-            }
-            removed = 0;
-            if (number.length() > 3) {
-                for (int i = 0; i < teams.size(); i++) {
-                    if (!String.valueOf(number.charAt(3)).equals(String.valueOf(teams.get(i - removed).charAt(3)))) {
-                        removed++;
-                        teams.remove(i - removed);
-                    }
-                }
-            }
-            
+            //DONE! Make this work with SQL queries and less for loops. Fsck for loops.
 
+            //if (number.length() > 4) {
+            //    return null;
+            //}
+            statement = connection.createStatement();
+            
+                rs = statement.executeQuery("SELECT * FROM teamdata WHERE teamnum LIKE '" + number + "%'");
+                //rs.next();
+            int i = 0;
+            while (rs.next()) {
+                //if (rs.getString("teamnum") != null) {
+                result[i] = rs.getString("teamnum");
+                i++;
+                //}
+                
+            }
         } catch (SQLException ex) {
             Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
         }
-        String[] match = new String[teams.size()];
-        for (int i = 0; i < teams.size(); i++) {
-            match[i] = teams.get(i);
-        }
-        return match;
+        
+        return result;
     }
     
     public boolean haveTeam(String teamNumber){
