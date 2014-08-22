@@ -190,11 +190,18 @@ public class DataBase{
     public boolean haveTeam(int teamNumber){
     
     return getLength("SELECT * FROM teamdata WHERE teamnum=" + teamNumber) != 0;
-    
+    //Does this thing need quotes or what?
     }
     
     public void setData(int teamNumber, String field, String data){
-        
+        PreparedStatement ps = null;
+        try {
+            ps = connection.prepareStatement("INSERT INTO teamdata (" + field + ") VALUES (" + data + ")");
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
     
     public boolean haveData(int teamNumber, String field){
