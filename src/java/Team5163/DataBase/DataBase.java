@@ -205,12 +205,25 @@ public class DataBase{
     }
     
     public boolean haveData(int teamNumber, String field){
-        return false;
+        ResultSet rs = null;
+        Boolean wasNull = null;
+        // The irony... 
+        try {
+            statement = connection.createStatement();
+            rs = statement.executeQuery("SELECT * FROM teamdata WHERE teamnum=" + teamNumber);
+            rs.next();
+            //Do I need quotes on that statement? Stay tuned for the next episode of TESTING!
+            rs.getString(field);
+            wasNull = rs.wasNull();
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return !wasNull;
     }
     
-    public void createTeam(int number){
-        
-    }
+    /*public void createTeam(int number){
+        DEPRICATED. Use setData with field teamnum instead.
+    }*/
     
     public void close() {
         try {
