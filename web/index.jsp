@@ -128,15 +128,11 @@
         <iframe src="<%= frame1 %>" id="frame1" class="framesWide"></iframe>
         <%} %>
             
-        <table hidden>
-                <% List<String> strings = data.getAllData();
-                    for (int a = 0; a < strings.size(); a++) {
-                %>
-                <tr>
-                    <td><%= a%></td>
-                    <td><%= strings.get(a)%></td>
-                    <% }%>
-            </table>
+        <% 
+        
+        Team5163.ObjectRegestry.getDataBase().connect();
+        
+        %>
         </div>
     </body>
 </html>
