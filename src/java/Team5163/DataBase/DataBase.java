@@ -138,7 +138,7 @@ public class DataBase{
     }
     
     public String[] findTeam(String number){
-            String[] result = new String[getLength("SELECT * FROM teamdata WHERE teamnum LIKE '" + number + "%'")];
+            String[] result = new String[getLength("SELECT * FROM teamdata WHERE teamnum LIKE '" + number + "%' ORDER BY ABS(teamnum)")];
             ResultSet rs = null;
         try {
             //DONE! Make this work with SQL queries and less for loops. Fsck for loops.
@@ -148,7 +148,8 @@ public class DataBase{
             //}
             statement = connection.createStatement();
             
-                rs = statement.executeQuery("SELECT * FROM teamdata WHERE teamnum LIKE '" + number + "%'");
+                rs = statement.executeQuery("SELECT * FROM teamdata WHERE teamnum LIKE '" + number + "%' ORDER BY ABS(teamnum)");
+                //SELECT * FROM teamdata WHERE teamnum LIKE '%00%' ORDER BY ABS(teamnum);
                 //rs.next();
             int i = 0;
             while (rs.next()) {
