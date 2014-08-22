@@ -142,7 +142,7 @@ public class DataBase{
             ResultSet rs = null;
         try {
             //DONE! Make this work with SQL queries and less for loops. Fsck for loops.
-
+            // removed for debug, un-comment when fixed
             //if (number.length() > 4) {
             //    return null;
             //}
@@ -168,14 +168,30 @@ public class DataBase{
     
     public boolean haveTeam(String teamNumber){
     
-    return getLength("SELECT * FROM teamdata WHERE teamnum=" + teamNumber) != 0;
+    return getLength("SELECT * FROM teamdata WHERE teamnum='" + teamNumber + "'") != 0;
     //Does this thing need quotes or what?
     }
-    
-    public void setData(int teamNumber, String field, String data){
+    public void addTeam(String teamNumber) {
         PreparedStatement ps = null;
+        if (!haveTeam(teamNumber)) {
+            try {
+                ps = connection.prepareStatement("INSERT INTO teamdata VALUES ('" + teamNumber + "',null,null,null,null,null,null,null,null,null,null,null)");
+                ps.executeUpdate();
+            } catch (SQLException ex) {
+                Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        
+        } else {
+            Team5163.Logger.Logger.log("Team " + teamNumber + " Already Exists");
+        }
+    }
+    public void setData(String teamNumber, String field, String data){
+        PreparedStatement ps = null;
+        if (getLength("SELECT * FROM teamdata WHERE teamnum = '" + teamNumber + "'") == 0)  {
+            Team5163.Logger.Logger.log("Team " + teamNumber + " does not exist. Field " + field + " not updated to " + data + ".");
+        }
         try {
-            ps = connection.prepareStatement("INSERT INTO teamdata (" + field + ") VALUES ('" + data + "')");
+            ps = connection.prepareStatement("UPDATE teamdata SET " + field + " = '" + data + "' WHERE teamnum = '" + teamNumber + "'");
             ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
@@ -189,7 +205,7 @@ public class DataBase{
         // The irony... 
         try {
             statement = connection.createStatement();
-            rs = statement.executeQuery("SELECT * FROM teamdata WHERE teamnum=" + teamNumber);
+            rs = statement.executeQuery("SELECT * FROM teamdata WHERE teamnum = '" + teamNumber + "'");
             rs.next();
             //Do I need quotes on that statement? Stay tuned for the next episode of TESTING!
             rs.getString(field);
