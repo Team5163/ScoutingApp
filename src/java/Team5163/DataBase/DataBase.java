@@ -154,7 +154,7 @@ public class DataBase{
             
             if (numstring.length() > 1) {
                 for (int i = 0; i < teams.size(); i++) {
-                    if (!String.valueOf(numstring.charAt(1)).equals(String.valueOf(teams.get(i - removed)).charAt(1))) {
+                    if (!String.valueOf(numstring.charAt(1)).equals(String.valueOf(teams.get(i - removed).charAt(1)))) {
                         removed++;
                         teams.remove(i - removed);
                     }
@@ -163,7 +163,7 @@ public class DataBase{
             removed = 0;
             if (numstring.length() > 2) {
                 for (int i = 0; i < teams.size(); i++) {
-                    if (!String.valueOf(numstring.charAt(2)).equals(String.valueOf(teams.get(i - removed)).charAt(2))) {
+                    if (!String.valueOf(numstring.charAt(2)).equals(String.valueOf(teams.get(i - removed).charAt(2)))) {
                         removed++;
                         teams.remove(i - removed);
                     }
@@ -172,7 +172,7 @@ public class DataBase{
             removed = 0;
             if (numstring.length() > 3) {
                 for (int i = 0; i < teams.size(); i++) {
-                    if (!String.valueOf(numstring.charAt(3)).equals(String.valueOf(teams.get(i - removed)).charAt(3))) {
+                    if (!String.valueOf(numstring.charAt(3)).equals(String.valueOf(teams.get(i - removed).charAt(3)))) {
                         removed++;
                         teams.remove(i - removed);
                     }
