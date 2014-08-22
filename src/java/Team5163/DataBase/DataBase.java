@@ -25,16 +25,16 @@ import javax.sql.DataSource;
 
 /**
  *
- * @author Yiwen Dong
+ * @author Rish Shadra
  */
 @WebServlet(name = "DataBase", urlPatterns = {"/DataBase"})
 public class DataBase{
     private Connection connection;
-    private PreparedStatement pstatement;
+    //private PreparedStatement pstatement;
     private Statement statement;
-    private ResultSet result;
+    //private ResultSet result;
     private int length;
-    private String[] resultarr;
+    //private String[] resultarr;
     private Context initialContext;
     private DataSource datasource;
     
@@ -110,7 +110,7 @@ public class DataBase{
     }
     
     public String getData(int teamNumber, String field){
-        String data;
+        String data = null;
         try {
             statement = connection.createStatement();
         } catch (SQLException ex) {
@@ -126,7 +126,7 @@ public class DataBase{
         for (int i = 0; i < getLength(); i++) {
             try {
                 if (Integer.parseInt(rs.getString("teamnum")) == teamNumber) {
-                    return rs.getString(field);
+                    data = rs.getString(field);
                 } else {
                     rs.next();
                 }
@@ -134,7 +134,7 @@ public class DataBase{
                 Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return "";
+        return data;
     }
     
     public String[] findTeam(int number){
@@ -183,7 +183,10 @@ public class DataBase{
         } catch (SQLException ex) {
             Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
         }
-        String[] match = (String[]) teams.toArray();
+        String[] match = new String[teams.size()];
+        for (int i = 0; i < teams.size(); i++) {
+            match[i] = teams.get(i);
+        }
         return match;
     }
     
@@ -196,7 +199,7 @@ public class DataBase{
     public void setData(int teamNumber, String field, String data){
         PreparedStatement ps = null;
         try {
-            ps = connection.prepareStatement("INSERT INTO teamdata (" + field + ") VALUES (" + data + ")");
+            ps = connection.prepareStatement("INSERT INTO teamdata (" + field + ") VALUES ('" + data + "')");
             ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
@@ -205,7 +208,7 @@ public class DataBase{
     }
     
     public boolean haveData(int teamNumber, String field){
-        ResultSet rs = null;
+        ResultSet rs;
         Boolean wasNull = null;
         // The irony... 
         try {
