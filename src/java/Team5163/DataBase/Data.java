@@ -7,6 +7,7 @@
 package Team5163.DataBase;
 
 import Team5163.Logger.Logger;
+import Team5163.ObjectRegestry;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -49,6 +50,17 @@ public class Data extends HttpServlet {
                     request.getRequestDispatcher("Data/TeamData.jsp").forward(request, response);
                 }
             }
+    }
+    @Override
+    public void init(){
+        //Logger.log("Start");
+        ObjectRegestry.getDataBase().connect();
+    }
+    
+    @Override
+    public void destroy(){
+        //Logger.log("destory");
+        ObjectRegestry.getDataBase().close();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
