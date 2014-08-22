@@ -81,10 +81,6 @@ public class DataBase{
         //System.out.println("test");
         //System.err.println("Test");
     }
-    public int getFieldColumn() {
-    
-        return 0;
-    }
     
     public int getLength() {
     
@@ -128,7 +124,51 @@ public class DataBase{
     }
     
     public String[] findTeam(int number){
-        String[] match = new String[5];
+        int removed = 0;
+        ArrayList<String> teams = new ArrayList();
+        String numstring = String.valueOf(number);
+        try {
+            statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT * FROM teamdata");
+            rs.next();
+            for (int i = 0; i < getLength(); i++) {
+                if (String.valueOf(rs.getString("teamnum").charAt(0)).equals(String.valueOf(numstring.charAt(0)))) {
+                    teams.add(rs.getString("teamnum"));
+                }
+            }
+            
+            if (numstring.length() > 1) {
+                for (int i = 0; i < teams.size(); i++) {
+                    if (!String.valueOf(numstring.charAt(1)).equals(String.valueOf(teams.get(i - removed)).charAt(1))) {
+                        removed++;
+                        teams.remove(i - removed);
+                    }
+                }
+            }
+            removed = 0;
+            if (numstring.length() > 2) {
+                for (int i = 0; i < teams.size(); i++) {
+                    if (!String.valueOf(numstring.charAt(2)).equals(String.valueOf(teams.get(i - removed)).charAt(2))) {
+                        removed++;
+                        teams.remove(i - removed);
+                    }
+                }
+            }
+            removed = 0;
+            if (numstring.length() > 3) {
+                for (int i = 0; i < teams.size(); i++) {
+                    if (!String.valueOf(numstring.charAt(3)).equals(String.valueOf(teams.get(i - removed)).charAt(3))) {
+                        removed++;
+                        teams.remove(i - removed);
+                    }
+                }
+            }
+            
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String[] match = (String[]) teams.toArray();
         return match;
     }
     
