@@ -130,13 +130,16 @@
             
         <% 
         
-        Team5163.ObjectRegistry.getDataBase().connect();
-        Team5163.Logger.Logger.log(Team5163.ObjectRegistry.getDataBase().getData("0004", "teamName"));
-        String[] teams = Team5163.ObjectRegistry.getDataBase().findTeam("0");
-        for (int i = 0; i < teams.length; i++) {
-            Team5163.Logger.Logger.log(teams[i] + String.valueOf(teams.length));
-        }
-        Team5163.ObjectRegistry.getDataBase().close();
+       // Team5163.ObjectRegistry.getDataBase().connect();
+       // Team5163.Logger.Logger.log(Team5163.ObjectRegistry.getDataBase().getData("0004", "teamName"));
+       // String[] teams = Team5163.ObjectRegistry.getDataBase().findTeam("0");
+       // for (int i = 0; i < teams.length; i++) {
+       //     Team5163.Logger.Logger.log(teams[i] + "" + String.valueOf(teams.length));
+       // }
+       // Team5163.ObjectRegistry.getDataBase().setData("2222", "gencon", "If this works, there is a problem.");
+       // Team5163.ObjectRegistry.getDataBase().addTeam("3333");
+       // Team5163.ObjectRegistry.getDataBase().setData("3333", "gencon", "John Z. Doe 555-867-5309 jzdoe@testing.edu");
+       // Team5163.ObjectRegistry.getDataBase().close();
         
         %>
         </div>

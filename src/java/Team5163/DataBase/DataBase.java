@@ -140,45 +140,51 @@ public class DataBase{
     public String[] findTeam(String number){
             String[] result = new String[getLength("SELECT * FROM teamdata WHERE teamnum LIKE '" + number + "%' ORDER BY ABS(teamnum)")];
             ResultSet rs = null;
-        try {
-            //DONE! Make this work with SQL queries and less for loops. Fsck for loops.
-
-            //if (number.length() > 4) {
-            //    return null;
-            //}
-            statement = connection.createStatement();
-            
+            try {
+                statement = connection.createStatement();            
                 rs = statement.executeQuery("SELECT * FROM teamdata WHERE teamnum LIKE '" + number + "%' ORDER BY ABS(teamnum)");
                 //SELECT * FROM teamdata WHERE teamnum LIKE '%00%' ORDER BY ABS(teamnum);
-                //rs.next();
-            int i = 0;
-            while (rs.next()) {
-                //if (rs.getString("teamnum") != null) {
-                result[i] = rs.getString("teamnum");
-                i++;
-                //}
-                
+                int i = 0;
+                while (rs.next()) {
+                    result[i] = rs.getString("teamnum");
+                    i++;
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
-        }
         
-        return result;
+            return result;
     }
     
     public boolean haveTeam(String teamNumber){
-    
-    return getLength("SELECT * FROM teamdata WHERE teamnum=" + teamNumber) != 0;
-    //Does this thing need quotes or what?
+        return getLength("SELECT * FROM teamdata WHERE teamnum='" + teamNumber + "'") != 0;
     }
     
-    public void setData(int teamNumber, String field, String data){
+    public void addTeam(String teamNumber) {
         PreparedStatement ps = null;
-        try {
-            ps = connection.prepareStatement("INSERT INTO teamdata (" + field + ") VALUES ('" + data + "')");
-            ps.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        if (!haveTeam(teamNumber)) {
+            try {
+                ps = connection.prepareStatement("INSERT INTO teamdata VALUES ('" + teamNumber + "',null,null,null,null,null,null,null,null,null,null,null)");
+                ps.executeUpdate();
+            } catch (SQLException ex) {
+                Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        
+        } else {
+            Team5163.Logger.Logger.log("Team " + teamNumber + " Already Exists");
+        }
+    }
+    public void setData(String teamNumber, String field, String data){
+        PreparedStatement ps = null;
+        if (getLength("SELECT * FROM teamdata WHERE teamnum = '" + teamNumber + "'") == 0)  {
+            Team5163.Logger.Logger.log("Team " + teamNumber + " does not exist. Field " + field + " not updated to " + data + ".");
+        } else {
+            try {
+                ps = connection.prepareStatement("UPDATE teamdata SET " + field + " = '" + data + "' WHERE teamnum = '" + teamNumber + "'");
+                ps.executeUpdate();
+            } catch (SQLException ex) {
+                Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
     }
@@ -189,9 +195,8 @@ public class DataBase{
         // The irony... 
         try {
             statement = connection.createStatement();
-            rs = statement.executeQuery("SELECT * FROM teamdata WHERE teamnum=" + teamNumber);
+            rs = statement.executeQuery("SELECT * FROM teamdata WHERE teamnum = '" + teamNumber + "'");
             rs.next();
-            //Do I need quotes on that statement? Stay tuned for the next episode of TESTING!
             rs.getString(field);
             wasNull = rs.wasNull();
         } catch (SQLException ex) {
@@ -199,10 +204,6 @@ public class DataBase{
         }
         return !wasNull;
     }
-    
-    /*public void createTeam(int number){
-        DEPRICATED. Use setData with field teamnum instead.
-    }*/
     
     public void close() {
         try {
