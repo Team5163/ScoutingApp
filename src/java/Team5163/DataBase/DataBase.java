@@ -109,7 +109,7 @@ public class DataBase{
         return length;
     }
     
-    public String getData(int teamNumber, String field){
+    public String getData(String teamNumber, String field){
         String data = null;
         try {
             statement = connection.createStatement();
@@ -137,42 +137,42 @@ public class DataBase{
         return data;
     }
     
-    public String[] findTeam(int number){
+    public String[] findTeam(String number){
         //TO DO! Make this work with SQL queries and less for loops. Fsck for loops.
         int removed = 0;
         ArrayList<String> teams = new ArrayList();
-        String numstring = String.valueOf(number);
+        
         try {
             statement = connection.createStatement();
             ResultSet rs = statement.executeQuery("SELECT * FROM teamdata");
             rs.next();
             for (int i = 0; i < getLength(); i++) {
-                if (String.valueOf(rs.getString("teamnum").charAt(0)).equals(String.valueOf(numstring.charAt(0)))) {
+                if (String.valueOf(rs.getString("teamnum").charAt(0)).equals(String.valueOf(number.charAt(0)))) {
                     teams.add(rs.getString("teamnum"));
                 }
             }
             
-            if (numstring.length() > 1) {
+            if (number.length() > 1) {
                 for (int i = 0; i < teams.size(); i++) {
-                    if (!String.valueOf(numstring.charAt(1)).equals(String.valueOf(teams.get(i - removed).charAt(1)))) {
+                    if (!String.valueOf(number.charAt(1)).equals(String.valueOf(teams.get(i - removed).charAt(1)))) {
                         removed++;
                         teams.remove(i - removed);
                     }
                 }
             }
             removed = 0;
-            if (numstring.length() > 2) {
+            if (number.length() > 2) {
                 for (int i = 0; i < teams.size(); i++) {
-                    if (!String.valueOf(numstring.charAt(2)).equals(String.valueOf(teams.get(i - removed).charAt(2)))) {
+                    if (!String.valueOf(number.charAt(2)).equals(String.valueOf(teams.get(i - removed).charAt(2)))) {
                         removed++;
                         teams.remove(i - removed);
                     }
                 }
             }
             removed = 0;
-            if (numstring.length() > 3) {
+            if (number.length() > 3) {
                 for (int i = 0; i < teams.size(); i++) {
-                    if (!String.valueOf(numstring.charAt(3)).equals(String.valueOf(teams.get(i - removed).charAt(3)))) {
+                    if (!String.valueOf(number.charAt(3)).equals(String.valueOf(teams.get(i - removed).charAt(3)))) {
                         removed++;
                         teams.remove(i - removed);
                     }
@@ -190,7 +190,7 @@ public class DataBase{
         return match;
     }
     
-    public boolean haveTeam(int teamNumber){
+    public boolean haveTeam(String teamNumber){
     
     return getLength("SELECT * FROM teamdata WHERE teamnum=" + teamNumber) != 0;
     //Does this thing need quotes or what?
@@ -207,7 +207,7 @@ public class DataBase{
 
     }
     
-    public boolean haveData(int teamNumber, String field){
+    public boolean haveData(String teamNumber, String field){
         ResultSet rs;
         Boolean wasNull = null;
         // The irony... 
