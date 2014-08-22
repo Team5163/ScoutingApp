@@ -67,29 +67,64 @@ public class DataBase{
             Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+//        try {
+//            
+//            //statement = connection.createStatement();
+//            //ResultSet rs = statement.executeQuery("SELECT * FROM Test");
+//            //Team5163.Logger.Logger.log(String.valueOf(rs.getRow()));
+//            //Team5163.Logger.Logger.log(rs.);
+//            //Team5163.Logger.Logger.log("HEHEHEHEHEHEHEHEHEEHEHEHEHEHEHHEHEHEHEHEHEHEHEHEHEHEHEHEHEHEE");
+//        } catch (SQLException ex) {
+//            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+        //Team5163.Logger.Logger.log("HOHOHOHOHOHOHOHOHOHOHOHOHOHOHOHOHOHOHOOHOHOHOOHOHOOHOHOHHOHOHOHOH");
+        //System.out.println("test");
+        //System.err.println("Test");
+    }
+    public int getFieldColumn() {
+    
+        return 0;
+    }
+    
+    public int getLength() {
+    
         try {
-            
             statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT * FROM Test");
-            rs.last();
-            Team5163.Logger.Logger.log(String.valueOf(rs.getRow()));
-            //Team5163.Logger.Logger.log(rs.);
-            Team5163.Logger.Logger.log("HEHEHEHEHEHEHEHEHEEHEHEHEHEHEHHEHEHEHEHEHEHEHEHEHEHEHEHEHEHEE");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM teamdata");
+            resultSet.last();    
+            length = resultSet.getRow();
         } catch (SQLException ex) {
             Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
         }
-        Team5163.Logger.Logger.log("HOHOHOHOHOHOHOHOHOHOHOHOHOHOHOHOHOHOHOOHOHOHOOHOHOOHOHOHHOHOHOHOH");
-        System.out.println("test");
-        System.err.println("Test");
+        return length;
     }
     
     public String getData(int teamNumber, String field){
+        String data;
+        try {
+            statement = connection.createStatement();
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ResultSet rs;
+        for (int i = 0; i < getLength(); i++) {
+            try {
+                rs = statement.executeQuery("SELECT * FROM teamdata");
+                if (Integer.parseInt(rs.getString("teamnum")) == teamNumber) {
+                    return rs.getString(field);
+                } else {
+                    rs.next();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         return "";
     }
     
     public String[] findTeam(int number){
-        String[] thing = new String[5];
-        return thing;
+        String[] match = new String[5];
+        return match;
     }
     
     public boolean haveTeam(){
@@ -106,5 +141,13 @@ public class DataBase{
     
     public void createTeam(int number){
         
+    }
+    
+    public void close() {
+        try {
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
