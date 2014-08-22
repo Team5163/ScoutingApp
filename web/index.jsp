@@ -4,7 +4,7 @@
     Author     : Yiwen Dong
 --%>
 
-<%@page import="Team5163.ObjectRegestry"%>
+<%@page import="Team5163.ObjectRegistry"%>
 <%@page import="java.util.List"%>
 <%@page import="Team5163.DataBase.DataBase"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -26,7 +26,7 @@
                 document.getElementById("teamListFrame").setAttribute("src", url)
             }
         </script>
-        <%  DataBase data = ObjectRegestry.getDataBase(); 
+        <%  DataBase data = ObjectRegistry.getDataBase(); 
         String frame1;
         String frame2;
         
@@ -130,7 +130,9 @@
             
         <% 
         
-        Team5163.ObjectRegestry.getDataBase().connect();
+        Team5163.ObjectRegistry.getDataBase().connect();
+        Team5163.Logger.Logger.log(Team5163.ObjectRegistry.getDataBase().getData(0004, "teamName"));
+        Team5163.ObjectRegistry.getDataBase().close();
         
         %>
         </div>

@@ -19,7 +19,7 @@ import java.util.logging.Level;
  *
  * @author Yiwen Dong
  */
-public class ObjectRegestry {
+public class ObjectRegistry {
     
     private static DataBase dataBase = new DataBase();
     private static Logger logger = new Logger();

@@ -106,10 +106,15 @@ public class DataBase{
         } catch (SQLException ex) {
             Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
         }
-        ResultSet rs;
+        ResultSet rs = null;
+        try {
+            rs = statement.executeQuery("SELECT * FROM teamdata");
+            rs.next();
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
         for (int i = 0; i < getLength(); i++) {
             try {
-                rs = statement.executeQuery("SELECT * FROM teamdata");
                 if (Integer.parseInt(rs.getString("teamnum")) == teamNumber) {
                     return rs.getString(field);
                 } else {

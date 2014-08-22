@@ -7,7 +7,7 @@
 package Team5163.DataBase;
 
 import Team5163.Logger.Logger;
-import Team5163.ObjectRegestry;
+import Team5163.ObjectRegistry;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -54,13 +54,13 @@ public class Data extends HttpServlet {
     @Override
     public void init(){
         //Logger.log("Start");
-        ObjectRegestry.getDataBase().connect();
+        ObjectRegistry.getDataBase().connect();
     }
     
     @Override
     public void destroy(){
         //Logger.log("destory");
-        ObjectRegestry.getDataBase().close();
+        ObjectRegistry.getDataBase().close();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
