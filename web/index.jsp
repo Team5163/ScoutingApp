@@ -18,12 +18,12 @@
     <body>
         <script>
             var URLCreate = "Login/CreateAccount.jsp";
-            var URLTeamList = "Data?type=teamList&teamNumber=11";
+            var URLTeamList = "Data?type=teamList&teamNumber=";
             function setFrame1(url){
                 document.getElementById("frame1").setAttribute("src", url);
             }
             function setTeamList(url){
-                document.getElementById("teamListFrame").setAttribute("src", url)
+                document.getElementById("teamListFrame").setAttribute("src", url + document.getElementById("search").value);
             }
         </script>
         <%  DataBase data = ObjectRegistry.getDataBase(); 
@@ -85,11 +85,11 @@
         </div>
         <div id="teamList">
             <form method="POST" action="processsearch.jsp">
-                <input type="text" placeholder="Team Number" oninput="setTeamList(URLTeamList)"/>
+                <input id="search" type="text" placeholder="Team Number" oninput="setTeamList(URLTeamList)"/>
                 <input type="submit" value="Go" />
             </form>
             <!-- Generate list of team numbers here -->
-            <iframe id="teamListFrame" src="Data" seamless></iframe>
+            <iframe id="teamListFrame" src="Data?type=teamList" seamless></iframe>
         </div>
         <div id="login">
             <% if (request.getSession().getAttribute("login").toString().equalsIgnoreCase("true")) {

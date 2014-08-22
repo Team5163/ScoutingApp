@@ -36,12 +36,21 @@ public class Data extends HttpServlet {
             if(requestType != null){
                 if(requestType.equalsIgnoreCase("teamList")){
                     //return list of teams.
-                    int teamNumber = Integer.valueOf(request.getParameter("teamNumber"));
-                    request.setAttribute("1", (int)Math.floor(Math.random() * 10000));
-                    request.setAttribute("2", (int)Math.floor(Math.random() * 10000));
-                    request.setAttribute("3", (int)Math.floor(Math.random() * 10000));
-                    request.setAttribute("4", (int)Math.floor(Math.random() * 10000));
-                    request.setAttribute("5", (int)Math.floor(Math.random() * 10000));
+                    String[] listOfTeam;
+                    if(request.getParameter("teamNumber") == null){
+                        listOfTeam = ObjectRegistry.getDataBase().findTeam("");
+                    } else {
+                        listOfTeam = ObjectRegistry.getDataBase().findTeam(request.getParameter("teamNumber"));
+                    }
+                    for(int a = 0; a < listOfTeam.length; a++){
+                            request.setAttribute("Result" + a, listOfTeam[a]);
+                        }
+//                    int teamNumber = Integer.valueOf(request.getParameter("teamNumber"));
+//                    request.setAttribute("1", (int)Math.floor(Math.random() * 10000));
+//                    request.setAttribute("2", (int)Math.floor(Math.random() * 10000));
+//                    request.setAttribute("3", (int)Math.floor(Math.random() * 10000));
+//                    request.setAttribute("4", (int)Math.floor(Math.random() * 10000));
+//                    request.setAttribute("5", (int)Math.floor(Math.random() * 10000));
                     request.getRequestDispatcher("Data/TeamList.jsp").forward(request, response);
                     //search database from a partial complete number 
                 }
