@@ -56,7 +56,11 @@ public class Data extends HttpServlet {
                 }
                 if(requestType.equalsIgnoreCase("viewPage")){
                     Logger.log("Getting page for team: " + request.getParameter("teamNumber"));
+                    request.setAttribute("viewTeam", request.getParameter("teamNumber"));
                     request.getRequestDispatcher("Data/TeamData.jsp").forward(request, response);
+                }
+                if(requestType.equalsIgnoreCase("edit")){
+                    
                 }
             }
     }

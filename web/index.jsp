@@ -84,8 +84,9 @@
             </div>
         </div>
         <div id="teamList">
-            <form method="POST" action="processsearch.jsp">
-                <input id="search" type="text" placeholder="Team Number" oninput="setTeamList(URLTeamList)"/>
+            <form method="POST" action="Data">
+                <input type="hidden" name="type" value="teamList" />
+                <input id="search" type="text" name="teamNumber" placeholder="Team Number" oninput="setTeamList(URLTeamList)"/>
                 <input type="submit" value="Go" />
             </form>
             <!-- Generate list of team numbers here -->
