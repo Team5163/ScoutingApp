@@ -10,7 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css"  href="./style.css" />
+        <!-- <link rel="stylesheet" type="text/css"  href="./style.css" /> -->
         <title>Team</title>
     </head>
     <% /*
@@ -33,7 +33,7 @@
             String editDisabled = "disabled";
 
             if (request.getSession().getAttribute("login") != null) {
-                if (request.getSession().getAttribute("login").toString().equalsIgnoreCase("true")) {
+                if (request.getSession().getAttribute("login").toString().equalsIgnoreCase("true") && request.getSession().getAttribute("mode").toString().equalsIgnoreCase("edit")) {
                     editReadOnly = "";
                     editDisabled = "";
                 }
@@ -41,6 +41,7 @@
         %>
         <form method="POST" action="Data">
             <input type="hidden" name="type" value="edit" />
+            <input type="hidden" name="teamNumber" value="<%= teamNumber %>" />
             <div id="header">
                 <h1>Info: Team <%= request.getAttribute("viewTeam").toString()%></h1>
             </div>
@@ -64,33 +65,33 @@
             <div id="robot">
                 Drive train: <input type="text" name="drivetrain" placeholder="<%= ObjectRegistry.getDataBase().getData(teamNumber, "drivetrain")%>" <%= editReadOnly%> />
                 <br /> 
-                Speed: <input type="text" name="drivetrain" placeholder="<%= ObjectRegistry.getDataBase().getData(teamNumber, "speed")%>" <%= editReadOnly%> />
+                Speed: <input type="text" name="speed" placeholder="<%= ObjectRegistry.getDataBase().getData(teamNumber, "speed")%>" <%= editReadOnly%> />
                 m/s <br /> 
-                Weight: <input type="text" name="drivetrain" placeholder="<%= ObjectRegistry.getDataBase().getData(teamNumber, "weight")%>" <%= editReadOnly%> />
+                Weight: <input type="text" name="weight" placeholder="<%= ObjectRegistry.getDataBase().getData(teamNumber, "weight")%>" <%= editReadOnly%> />
                 kg 
             </div>
             <div id="contacts">
                 Strategy: <br /> 
-                <input type="text" name="drivetrain" placeholder="<%= ObjectRegistry.getDataBase().getData(teamNumber, "stratcon")%>" <%= editReadOnly%> />
+                <input type="text" name="stratcon" placeholder="<%= ObjectRegistry.getDataBase().getData(teamNumber, "stratcon")%>" <%= editReadOnly%> />
                 , 
-                <input type="text" name="drivetrain" placeholder="<%= ObjectRegistry.getDataBase().getData(teamNumber, "othercon")%>" <%= editReadOnly%> />
+                <input type="text" name="othercon" placeholder="<%= ObjectRegistry.getDataBase().getData(teamNumber, "othercon")%>" <%= editReadOnly%> />
                 <br /> General: <br /> 
-                <input type="text" name="drivetrain" placeholder="<%= ObjectRegistry.getDataBase().getData(teamNumber, "gencon")%>" <%= editReadOnly%> /> 
+                <input type="text" name="gencon" placeholder="<%= ObjectRegistry.getDataBase().getData(teamNumber, "gencon")%>" <%= editReadOnly%> /> 
             </div>
             <div id="wins">
                 Wins: 1 <br /> Losses: 1
             </div>
             <div id="team">
                 Team: 
-                <input type="text" name="drivetrain" placeholder="<%= ObjectRegistry.getDataBase().getData(teamNumber, "teamname")%>" <%= editReadOnly%> /> 
+                <input type="text" name="teamname" placeholder="<%= ObjectRegistry.getDataBase().getData(teamNumber, "teamname")%>" <%= editReadOnly%> /> 
                 <br /> Driver: 
-                <input type="text" name="drivetrain" placeholder="<%= ObjectRegistry.getDataBase().getData(teamNumber, "driver")%>" <%= editReadOnly%> /> 
+                <input type="text" name="driver" placeholder="<%= ObjectRegistry.getDataBase().getData(teamNumber, "driver")%>" <%= editReadOnly%> /> 
                 <br /> Mentor: 
-                <input type="text" name="drivetrain" placeholder="<%= ObjectRegistry.getDataBase().getData(teamNumber, "mentor")%>" <%= editReadOnly%> /> 
+                <input type="text" name="mentor" placeholder="<%= ObjectRegistry.getDataBase().getData(teamNumber, "mentor")%>" <%= editReadOnly%> /> 
                 <br /> Sponsors: 
-                <input type="text" name="drivetrain" placeholder="<%= ObjectRegistry.getDataBase().getData(teamNumber, "sponsors")%>" <%= editReadOnly%> /> 
+                <input type="text" name="sponsors" placeholder="<%= ObjectRegistry.getDataBase().getData(teamNumber, "sponsors")%>" <%= editReadOnly%> /> 
                 <br /> Contact Info: 
-                <input type="text" name="drivetrain" placeholder="<%= ObjectRegistry.getDataBase().getData(teamNumber, "miscinfo")%>" <%= editReadOnly%> /> 
+                <input type="text" name="miscinfo" placeholder="<%= ObjectRegistry.getDataBase().getData(teamNumber, "miscinfo")%>" <%= editReadOnly%> /> 
             </div>
             <input type="submit" value="Change" <%= editDisabled%> /> 
         </form>

@@ -60,7 +60,21 @@ public class Data extends HttpServlet {
                     request.getRequestDispatcher("Data/TeamData.jsp").forward(request, response);
                 }
                 if(requestType.equalsIgnoreCase("edit")){
+                    Logger.log("User: \"" + request.getSession().getAttribute("name").toString() + "\" tried to edit data for team: \"" + request.getParameter("teamNumber") + "\"");
+                    String teamNumber = request.getParameter("teamNumber");
+                    DataBase dataBase = ObjectRegistry.getDataBase();
+                    dataBase.setData(teamNumber, "drivetrain", request.getParameter("drivetrain"));
+                    dataBase.setData(teamNumber, "speed", request.getParameter("speed"));
+                    dataBase.setData(teamNumber, "weight", request.getParameter("weight"));
+                    dataBase.setData(teamNumber, "stratcon", request.getParameter("stratcon"));
+                    dataBase.setData(teamNumber, "othercon", request.getParameter("othercon"));
+                    dataBase.setData(teamNumber, "gencon", request.getParameter("gencon"));
+                    dataBase.setData(teamNumber, "driver", request.getParameter("driver"));
+                    dataBase.setData(teamNumber, "mentor", request.getParameter("mentor"));
+                    dataBase.setData(teamNumber, "sponsors", request.getParameter("sponsors"));
+                    dataBase.setData(teamNumber, "miscinfo", request.getParameter("miscinfo"));
                     
+                    request.getRequestDispatcher("Data?type=viewpage&teamNumber=" + teamNumber).forward(request, response);
                 }
             }
     }
