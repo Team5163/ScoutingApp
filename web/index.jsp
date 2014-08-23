@@ -13,7 +13,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title> 5163 Scouting </title>
-        <link rel="stylesheet" href="style.css" />
+        <link rel="stylesheet" href="style.css" type="text/css"/>
     </head>
     <body>
         <script>
