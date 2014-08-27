@@ -14,10 +14,11 @@
     </head>
     <body>
         <div>
-            <form method="POST" action="../Create">
+            <form method="POST" action="./Create">
                 User Name: <input type="text" placeholder="User Name Here" name="user" class="input" /><br />
                 Password: <input type="password" placeholder="Password Here" name="pass" class="input" /><br />
                 Re-type Password: <input type="password" placeholder="Re-type Password Here" name="re-pass" class="input" /><br />
+                Admin Password: <input type="password" placeholder="Plese get your admin to type password here" name="adminPass" class="input" /><br />
                 <input type="submit" value="Submit" /><input type="reset" value="Reset" /> 
             </form>
         </div>

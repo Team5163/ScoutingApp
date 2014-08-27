@@ -17,7 +17,7 @@
     </head>
     <body>
         <script>
-            var URLCreate = "Login/CreateAccount.jsp";
+            var URLCreate = "Create";
             var URLTeamList = "Data?type=teamList&teamNumber=";
             function setFrame1(url){
                 document.getElementById("frame1").setAttribute("src", url);
