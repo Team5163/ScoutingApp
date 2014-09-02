@@ -33,33 +33,36 @@ public class Data extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String requestType = request.getParameter("type");
-            if(requestType != null){
-                if(requestType.equalsIgnoreCase("teamList")){
-                    //return list of teams.
-                    String[] listOfTeam;
-                    if(request.getParameter("teamNumber") == null){
-                        listOfTeam = ObjectRegistry.getDataBase().findTeam("");
-                    } else {
-                        listOfTeam = ObjectRegistry.getDataBase().findTeam(request.getParameter("teamNumber"));
-                    }
-                    for(int a = 0; a < listOfTeam.length; a++){
-                            request.setAttribute("Result" + a, listOfTeam[a]);
-                        }
+        if (requestType != null) {
+            if (requestType.equalsIgnoreCase("teamList")) {
+                //return list of teams.
+                String[] listOfTeam;
+                if (request.getParameter("teamNumber") == null) {
+                    listOfTeam = ObjectRegistry.getDataBase().findTeam("");
+                } else {
+                    listOfTeam = ObjectRegistry.getDataBase().findTeam(request.getParameter("teamNumber"));
+                }
+                for (int a = 0; a < listOfTeam.length; a++) {
+                    request.setAttribute("Result" + a, listOfTeam[a]);
+                }
 //                    int teamNumber = Integer.valueOf(request.getParameter("teamNumber"));
 //                    request.setAttribute("1", (int)Math.floor(Math.random() * 10000));
 //                    request.setAttribute("2", (int)Math.floor(Math.random() * 10000));
 //                    request.setAttribute("3", (int)Math.floor(Math.random() * 10000));
 //                    request.setAttribute("4", (int)Math.floor(Math.random() * 10000));
 //                    request.setAttribute("5", (int)Math.floor(Math.random() * 10000));
-                    request.getRequestDispatcher("Data/TeamList.jsp").forward(request, response);
-                    //search database from a partial complete number 
-                }
-                if(requestType.equalsIgnoreCase("viewPage")){
-                    Logger.log("Getting page for team: " + request.getParameter("teamNumber"));
-                    request.setAttribute("viewTeam", request.getParameter("teamNumber"));
-                    request.getRequestDispatcher("Data/TeamData.jsp").forward(request, response);
-                }
-                if(requestType.equalsIgnoreCase("edit")){
+                request.getRequestDispatcher("Data/TeamList.jsp").forward(request, response);
+                //search database from a partial complete number 
+                return;
+            }
+            if (requestType.equalsIgnoreCase("viewPage")) {
+                Logger.log("Getting page for team: " + request.getParameter("teamNumber"));
+                request.setAttribute("viewTeam", request.getParameter("teamNumber"));
+                request.getRequestDispatcher("Data/TeamData.jsp").forward(request, response);
+                return;
+            }
+            if (requestType.equalsIgnoreCase("edit")) {
+                if (request.getSession().getAttribute("login").toString().equalsIgnoreCase("true")) {
                     Logger.log("User: \"" + request.getSession().getAttribute("name").toString() + "\" tried to edit data for team: \"" + request.getParameter("teamNumber") + "\"");
                     String teamNumber = request.getParameter("teamNumber");
                     DataBase dataBase = ObjectRegistry.getDataBase();
@@ -76,16 +79,28 @@ public class Data extends HttpServlet {
                     
                     request.getRequestDispatcher("Data?type=viewpage&teamNumber=" + teamNumber).forward(request, response);
                 }
+                return;
             }
+            if (requestType.equalsIgnoreCase("addTeam")) {
+                if (request.getSession().getAttribute("login").toString().equalsIgnoreCase("true")) {
+                    ObjectRegistry.getDataBase().addTeam(request.getParameter("number"));
+                    Logger.log("User " + request.getSession().getAttribute("name") + " create team: " + request.getParameter("number"));
+                    
+                    request.getRequestDispatcher("Data?type=viewPage&teamNumber=" + request.getParameter("number")).forward(request, response);
+                }
+                return;
+            }
+        }
     }
+
     @Override
-    public void init(){
+    public void init() {
         //Logger.log("Start");
         ObjectRegistry.getDataBase().connect();
     }
     
     @Override
-    public void destroy(){
+    public void destroy() {
         //Logger.log("destory");
         ObjectRegistry.getDataBase().close();
     }

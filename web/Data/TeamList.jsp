@@ -52,6 +52,9 @@
         <table id="table">
             <tr></tr>
         </table>
+        <% if (request.getSession().getAttribute("login").toString().equalsIgnoreCase("true")){ %>
+        <p><a href="#" onclick="setFrame1('Data/CreateTeam.html');">Create Team</a></p>
+        <% } %>
         <script>var table = document.getElementById("table").innerHTML = getTable();</script>
     </body>
 </html>
