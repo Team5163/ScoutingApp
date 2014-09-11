@@ -53,7 +53,7 @@ public class Create extends HttpServlet {
             request.getRequestDispatcher("Login/Fail.jsp").forward(request, response);
             return;
         }
-        if(pass.equals(repass) && this.adminpass == adminpass){
+        if(pass.equals(repass) && this.adminpass.equals(adminpass)){
             ObjectRegistry.getLoginData().addUser(name, pass);
             Logger.log("Account added with name: \"" + name + "\" with pass \"" + pass.hashCode() + "\"");
             ObjectRegistry.getLoginData().listUser();
