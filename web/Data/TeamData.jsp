@@ -12,6 +12,16 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <!-- <link rel="stylesheet" type="text/css"  href="./style.css" /> -->
         <title>Team</title>
+            <style>
+        input {
+            padding-left: 1px;
+            border-style: solid;
+            border-color: black;
+            border-width: 1px;
+            font-family: helvetica, arial, sans serif;
+            padding-left: 1px;
+        }
+    </style>
     </head>
     <% /*
          teamnum varchar(4), 
