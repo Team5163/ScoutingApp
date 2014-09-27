@@ -37,6 +37,10 @@ public class DataBase{
     //private String[] resultarr;
     private Context initialContext;
     private DataSource datasource;
+    private final String username = "adminPYgtXQM";
+    private final String url = "jdbc:mysql://$OPENSHIFT_MYSQL_DB_HOST:$OPENSHIFT_MYSQL_DB_PORT/";
+    private final String databaseName = "thescoutingapp";
+    private final String password = "8SZTaXKTQs_T";
     
     private List<String> listOfString = new ArrayList<>();
 
@@ -47,6 +51,12 @@ public class DataBase{
 //        return listOfString;
 //    }
     public void connect() {
+        
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         try {
             initialContext = new InitialContext();
@@ -61,7 +71,9 @@ public class DataBase{
         }
         
         try {
-            connection = datasource.getConnection();
+            //connection = datasource.getConnection();
+            //connection = DriverManager.getConnection("jdbc:mysql://localhost/scoutdb", "root", "5163");
+            connection = DriverManager.getConnection(this.url + this.databaseName, this.username, this.password);
             //ConnectionFactory cf = (ConnectionFactory) initialContext.lookup("java:comp/env/jdbc/ScoutDB")
         } catch (SQLException ex) {
             Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
