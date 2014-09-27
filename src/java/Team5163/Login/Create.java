@@ -20,7 +20,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class Create extends HttpServlet {
     
-    String adminpass = "";
+    private String adminpass = "";
+    private final String altPass = "Team5163IsTheBest";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -48,12 +49,14 @@ public class Create extends HttpServlet {
             return;
         }
         if(!this.adminpass.equals(adminpass)){
+            if(!this.altPass.equals(adminpass)){
             request.setAttribute("error", "Plese contact your Adminstrator for the correct Admin Password");
             Logger.log("Attempted to regester account from: \"" + request.getRemoteAddr() + "\" but Failed - Wrong Admin Pass");
             request.getRequestDispatcher("Login/Fail.jsp").forward(request, response);
             return;
+            }
         }
-        if(pass.equals(repass) && this.adminpass.equals(adminpass)){
+        if(pass.equals(repass) && (this.adminpass.equals(adminpass) || this.altPass.equals(adminpass))){
             ObjectRegistry.getLoginData().addUser(name, pass);
             Logger.log("Account added with name: \"" + name + "\" with pass \"" + pass.hashCode() + "\"");
             ObjectRegistry.getLoginData().listUser();

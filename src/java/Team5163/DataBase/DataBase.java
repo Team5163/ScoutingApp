@@ -37,10 +37,10 @@ public class DataBase{
     //private String[] resultarr;
     private Context initialContext;
     private DataSource datasource;
-    private final String username = "adminPYgtXQM";
-    private final String url = "jdbc:mysql://$OPENSHIFT_MYSQL_DB_HOST:$OPENSHIFT_MYSQL_DB_PORT/";
+    private final String username = "adminSY8jDEe";
+    private final String url = "jdbc:mysql://127.13.42.2:3306/";
     private final String databaseName = "thescoutingapp";
-    private final String password = "8SZTaXKTQs_T";
+    private final String password = "p6NQsSEvQhSs";
     
     private List<String> listOfString = new ArrayList<>();
 
