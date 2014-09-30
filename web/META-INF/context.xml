@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context antiJARLocking="true" path="/ScoutingApp">
-        <Resource name="jdbc/scoutdb" auth="Container" type="javax.sql.DataSource"
+        <Resource name="jdbc/thescoutingapp" auth="Container" type="javax.sql.DataSource"
                maxActive="100" maxIdle="30" maxWait="10000"
-               username="root" password="5163" driverClassName="com.mysql.jdbc.Driver"
-               url="jdbc:mysql://localhost:3306/scoutdb"/>
+               username="adminSY8jDEe" password="p6NQsSEvQhSs" driverClassName="com.mysql.jdbc.Driver"
+               url="jdbc:mysql://127.13.42.2:3306/thescoutingapp"/>
 </Context>
