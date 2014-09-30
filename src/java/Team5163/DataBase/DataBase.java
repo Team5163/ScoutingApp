@@ -64,11 +64,11 @@ public class DataBase{
             Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        try {
-            datasource = (DataSource)initialContext.lookup("java:comp/env/jdbc/scoutdb");
-        } catch (NamingException ex) {
-            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            datasource = (DataSource)initialContext.lookup("java:comp/env/jdbc/scoutdb");
+//        } catch (NamingException ex) {
+//            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         
         try {
             //connection = datasource.getConnection();
@@ -95,7 +95,13 @@ public class DataBase{
     }
     
     public int getLength() {
-    
+        try {
+            while(!connection.isValid(0)){
+                this.connect();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
         try {
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM teamdata");
@@ -109,7 +115,13 @@ public class DataBase{
     
     
     public int getLength(String query) {
-    
+        try {
+            while(!connection.isValid(0)){
+                this.connect();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
         try {
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);

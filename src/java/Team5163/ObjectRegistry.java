@@ -26,7 +26,8 @@ public class ObjectRegistry {
 //    private static Map<String, Integer> users = new HashMap(){{
 //        this.put("Yiwen", new String("1234").hashCode());
 //    }};
-    private static String workingDir = System.getenv("APPDATA") + "\\ScoutingApp";
+    //private static String workingDir = System.getenv("APPDATA") + "\\ScoutingApp";
+    private static String workingDir =  "/var/lib/openshift/54270d73e0b8cdfb78000135/app-root/data/";
     private static LoginData loginData = new LoginData();
     
     public static DataBase getDataBase(){

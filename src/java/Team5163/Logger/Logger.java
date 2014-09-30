@@ -23,7 +23,8 @@ import javax.servlet.http.HttpServletResponse;
 public class Logger{
     
     public static void log(String message){
-        System.err.println(parseTime() + message);
+        //System.err.println(parseTime() + message);
+        System.out.println(parseTime() + message);
     }
     
     private static String parseTime(){

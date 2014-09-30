@@ -37,7 +37,7 @@ public class LoginData {
 
     private boolean started = false;
     private Map<String, Integer> mapOfUser = new HashMap<>();
-    private String filePath = ObjectRegistry.getWorkingDir() + "\\users.xml";
+    private String filePath = ObjectRegistry.getWorkingDir() + File.separator +"users.xml";
     private DocumentBuilderFactory docFactory;
     private DocumentBuilder docBuilder;
     private Document doc;
