@@ -27,7 +27,7 @@ public class ObjectRegistry {
 //        this.put("Yiwen", new String("1234").hashCode());
 //    }};
     //private static String workingDir = System.getenv("APPDATA") + "\\ScoutingApp";
-    private static String workingDir =  "/var/lib/openshift/54270d73e0b8cdfb78000135/app-root/data/";
+    private static String workingDir =  "/var/lib/openshift/542b12975973ca77b00000f3/app-root/data/";
     private static LoginData loginData = new LoginData();
     
     public static DataBase getDataBase(){

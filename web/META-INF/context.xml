@@ -2,6 +2,6 @@
 <Context antiJARLocking="true" path="/ScoutingApp">
         <Resource name="jdbc/thescoutingapp" auth="Container" type="javax.sql.DataSource"
                maxActive="100" maxIdle="30" maxWait="10000"
-               username="adminSY8jDEe" password="p6NQsSEvQhSs" driverClassName="com.mysql.jdbc.Driver"
-               url="jdbc:mysql://127.13.42.2:3306/thescoutingapp"/>
+               username="adminEU2IwBY" password="JsQUn5b9sTJF" driverClassName="com.mysql.jdbc.Driver"
+               url="jdbc:mysql://127.7.142.130:3306/thescoutingapp"/>
 </Context>
