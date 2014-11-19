@@ -37,7 +37,7 @@
                 var data = "";
                 for(a = 0; a < numbers.length; a++){
                     data = data + "<tr><td><a href=\"#\" onclick=\"setFrame1('Data?type=viewPage&teamNumber=" + numbers[a] + "\');\" >" + numbers[a]
-                            + "</a></td><td><a href=\"#\" onclick=\"setFrame2('Data?type=viewPage&teamNumber=" + numbers[a] + "\');\" >" + numbers[a] + "</a></td></tr>";
+                            + "</a></td><td>&nbsp;&nbsp;<a href=\"#\" onclick=\"setFrame2('Data?type=viewPage&teamNumber=" + numbers[a] + "\');\" >" + numbers[a] + "</a></td></tr>";
                 }
                 return data;
                 }

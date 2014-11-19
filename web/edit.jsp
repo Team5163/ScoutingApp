@@ -9,6 +9,16 @@
 
 <script type='text/javascript' src="js/hover.js"></script>
 
+<script>
+            var URLTeamList = "Data?type=teamList&teamNumber=";
+            function setFrame1(url){
+                document.getElementById("teamviewframe").setAttribute("src", url);
+            }
+            function setTeamList(url){
+                document.getElementById("teamlistframe").setAttribute("src", url + document.getElementById("search").value);
+            }
+</script>
+
 </head>
 <body>
 

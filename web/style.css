@@ -263,7 +263,7 @@ p {
 	position: absolute;
 	left: 25%;
 	top: 76px;
-	width: 75%;
+	width: 25%;
 	height: 85%;
 	margin: 0;
 	padding: 0;
@@ -279,6 +279,23 @@ p {
 	height: 90%;
 	width: 100%;
 	border: none;
+}
+
+#teamcompare {
+        position: absolute;
+        left: 65%;
+        top: 76px;
+        height: 85%;
+        width: 25%;
+        margin: 0;
+        padding: 0;
+}
+
+#teamcompareframe {
+        height: 100%;
+        width: 100%;
+        border: none;
+    
 }
 
 #teamlistform {
