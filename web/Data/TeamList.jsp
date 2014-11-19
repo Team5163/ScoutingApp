@@ -54,10 +54,9 @@
             <tr></tr>
         </table>
         <% if (request.getSession().getAttribute("login").toString().equalsIgnoreCase("true")){ %>
-        <p>----------- <br>
-            <a href="#" onclick="setFrame1('Data/CreateTeam.html');">Create Team</a><br>
-            -----------
-        </p>
+        <div id="createTeam">
+            <a href="#" onclick="setFrame1('Data/CreateTeam.html');">Add Team</a>
+        </div>
         <% } %>
         <script>var table = document.getElementById("table").innerHTML = getTable();</script>
     </body>

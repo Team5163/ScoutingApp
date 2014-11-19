@@ -1,7 +1,7 @@
 <html>
 <head>
 <link rel="stylesheet" href="style.css" />
-<title>Team #### Scouting</title>
+<title>Scouting App</title>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
@@ -22,10 +22,11 @@
 </head>
 <body>
 
-    <% request.getSession().setAttribute("mode", "view"); %>
+    <% request.getSession().setAttribute("mode", "view");
+       request.getSession().setAttribute("login", "false");%>
     
 <header>
-<a href="view.html" id="logo"></a>
+<a href="view.jsp" id="logo"></a>
 
 <nav>
 
@@ -33,11 +34,12 @@
 
 <ul>
 
-<li><a href="view.html" class="current">View</a></li>
-<li><a href="compare.html">Compare</a></li>
-<li><a href="edit.html">Edit</a></li>
-<li><a href="suggest.html">Suggest</a></li>
-<li><a href="options.html">Options</a></li>
+<li><a href="view.jsp" class="current">View</a></li>
+<li><a href="compare.jsp">Compare</a></li>
+<li><a href="rank.jsp">Rank</a></li>
+<li><a href="edit.jsp">Edit</a></li>
+<li><a href="suggest.jsp">Suggest</a></li>
+<li><a href="options.jsp">Options</a></li>
 
 </ul>
 
@@ -62,11 +64,10 @@
 </section>
 
 <footer>
-<ul><li><a href="about.html">About</a></li> <li><a href="login.html">Log In or Sign Up</a></li></ul>
+<ul><li><a href="about.jsp">About</a></li> <li><a href="login.jsp">Log In or Sign Up</a></li></ul>
 <h2 id="credittext">@</h1>
 </footer>
 
 </body>
 
-</html>
 </html>

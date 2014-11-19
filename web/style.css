@@ -290,6 +290,31 @@ p {
 	margin: 0;
 }
 
+/*Team Data*/
+
+.displayValues {
+    background-color: #f9f9f9;
+    border: none;
+    text-align: center;
+}
+
+.tableheader {
+    text-align: center;
+    padding: 5px;
+    margin: 5px;
+}
+
+
+/*Team List*/
+
+#createTeam {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    height: 40px;
+    width: 100%; 
+}
+
 /*MEDIA QUERY*/
 
 @media only screen and (max-width : 760px) {

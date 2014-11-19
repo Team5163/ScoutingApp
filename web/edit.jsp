@@ -12,9 +12,11 @@
 </head>
 <body>
 
+    <% request.getSession().setAttribute("mode", "edit");
+       request.getSession().setAttribute("login", "true");%>
+    
 <header>
-
-<a href="view.html" id="logo"></a>
+<a href="view.jsp" id="logo"></a>
 
 <nav>
 
@@ -22,29 +24,40 @@
 
 <ul>
 
-<li><a href="view.html">View</a></li>
-<li><a href="compare.html">Compare</a></li>
-<li><a href="edit.html" class="current">Edit</a></li>
-<li><a href="suggest.html">Suggest</a></li>
-<li><a href="options.html">Options</a></li>
+<li><a href="view.jsp">View</a></li>
+<li><a href="compare.jsp">Compare</a></li>
+<li><a href="rank.jsp">Rank</a></li>
+<li><a href="edit.jsp" class="current">Edit</a></li>
+<li><a href="suggest.jsp">Suggest</a></li>
+<li><a href="options.jsp">Options</a></li>
 
 </ul>
+
+<h3 id="pagetitle">View</h3>
 
 </nav>
 <h1 id="border"> </h1>
 </header>
 
-<section>
-
-<h1>Placeholder Text</h1>
+<section id="teamlist">
+<form id="teamlistform">
+<input id="search" type="text" name="teamNumber" placeholder="Search Teams" oninput="setTeamList(URLTeamList)"/>        
+</form>
+<iframe id="teamlistframe" src="Data?type=teamList"></iframe>
 
 </section>
+
+<section id="teamview">
+
+<iframe id="teamviewframe" src="Data?type=viewPage&teamNumber=0000"></iframe>
+
+</section>
+
 <footer>
-<ul><li><a href="about.html">About</a></li> <li><a href="login.html">Log In or Sign Up</a></li></ul>
+<ul><li><a href="about.jsp">About</a></li> <li><a href="login.jsp">Log In or Sign Up</a></li></ul>
 <h2 id="credittext">@</h1>
 </footer>
 
 </body>
 
-</html>
 </html>
