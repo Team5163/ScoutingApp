@@ -1,7 +1,7 @@
 <html>
 <head>
 <link rel="stylesheet" href="style.css" />
-<title>Team #### Scouting</title>
+<title>Maybe use one table with three columns for this section?</title>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
@@ -9,12 +9,24 @@
 
 <script type='text/javascript' src="js/hover.js"></script>
 
+<script>
+            var URLTeamList = "Data?type=teamList&teamNumber=";
+            function setFrame1(url){
+                document.getElementById("teamviewframe").setAttribute("src", url);
+            }
+            function setTeamList(url){
+                document.getElementById("teamlistframe").setAttribute("src", url + document.getElementById("search").value);
+            }
+</script>
+
 </head>
 <body>
 
+    <% request.getSession().setAttribute("mode", "compare");
+       request.getSession().setAttribute("login", "true");%>
+    
 <header>
-
-<a href="view.html" id="logo"></a>
+<a href="view.jsp" id="logo"></a>
 
 <nav>
 
@@ -22,29 +34,43 @@
 
 <ul>
 
-<li><a href="view.html">View</a></li>
-<li><a href="compare.html" class="current">Compare</a></li>
-<li><a href="edit.html">Edit</a></li>
-<li><a href="suggest.html">Suggest</a></li>
-<li><a href="options.html">Options</a></li>
+<li><a href="view.jsp">View</a></li>
+<li><a href="compare.jsp" class="current">Compare</a></li>
+<li><a href="rank.jsp">Rank</a></li>
+<li><a href="edit.jsp">Edit</a></li>
+<li><a href="suggest.jsp">Suggest</a></li>
+<li><a href="options.jsp">Options</a></li>
 
 </ul>
+
+<h3 id="pagetitle">View</h3>
 
 </nav>
 <h1 id="border"> </h1>
 </header>
 
-<section>
-
-<h1>Placeholder Text</h1>
+<section id="teamlist">
+<form id="teamlistform">
+<input id="search" type="text" name="teamNumber" placeholder="Search Teams" oninput="setTeamList(URLTeamList)"/>        
+</form>
+<iframe id="teamlistframe" src="Data?type=teamList"></iframe>
 
 </section>
+
+<section id="teamview">
+
+<iframe id="teamviewframe" src="Data?type=viewPage&teamNumber=0000"></iframe>
+
+</section>
+       
+       <section id="teamcompare"><iframe id="teamcompareframe" src="Data?type=viewPage&teamNumber=0000"></iframe></section>
+
 <footer>
-<ul><li><a href="about.html">About</a></li> <li><a href="login.html">Log In or Sign Up</a></li></ul>
+<ul><li><a href="about.jsp">About</a></li> <li><a href="login.jsp">Log In or Sign Up</a></li></ul>
 <h2 id="credittext">@</h1>
 </footer>
 
 </body>
 
-</html>
+
 </html>
