@@ -89,7 +89,7 @@ public class Data extends HttpServlet {
                     
                     request.getRequestDispatcher("Data?type=viewPage&teamNumber=" + request.getParameter("number")).forward(request, response);
                 }
-                return;
+                return; //Figure this out
             }
         }
     }

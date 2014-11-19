@@ -19,13 +19,13 @@
             //var url = [];
             var numbers = [];
             function setFrame1(url){
-                parent.document.getElementById("frame1").setAttribute("src", url);
+                parent.document.getElementById("teamviewframe").setAttribute("src", url);
             }
             function setFrame2(url){
-                parent.document.getElementById("frame2").setAttribute("src", url);
+                parent.document.getElementById("teamcompareframe").setAttribute("src", url);
             }
             function setTeamList(url){
-                parent.document.getElementById("teamListFrame").setAttribute("src", url)
+                parent.document.getElementById("teamlistframe").setAttribute("src", url)
             }
                     <% int a = 0;
                         while(request.getAttribute("Result" + a) != null){
