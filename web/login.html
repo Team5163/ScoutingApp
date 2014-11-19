@@ -13,6 +13,7 @@
 <body>
 
 <header>
+
 <a href="view.html" id="logo"></a>
 
 <nav>
@@ -33,17 +34,18 @@
 <h1 id="border"> </h1>
 </header>
 
-<section>
+<section id="loginsection">
+<h2>If you already have an account, use the form below to sign in.</h2><br />
+<form id="login"><input type="textbox" placeholder="User Name" class="logininput formtop" required /><br /><input type="password" placeholder="Password" class="logininput" required /><br /><input type="button" value="Log In" class="loginbutton formbottom"/></form>
 
-<h1>About</h1>
-<div id="teamimage" class="inline">
-<img src="img/team.jpg" class="inlineimage"/>
-<center class="captioncenter"><h2 class="caption">The Team</h2></center></div> <!-- CSS wouldn't work here so <center> it is -->
-<p>This app was developed starting in the 2013-2014 post-season and is currently undergoing development. It aims to simplify and consolidate the scouting efforts of FRC teams like us. </p>
 </section>
 
+<section id="signupsection">
+<h2>At this time, signing up is only possible via an invite. To request an invite, kindly fill out the form below.</h2>
+<form id="signup"></form>
+</section>
 <footer>
-<ul><li><a href="about.html" class="current">About</a></li> <li><a href="login.html">Log In or Sign Up</a></li></ul>
+<ul><li><a href="about.html">About</a></li> <li><a href="login.html" class="current">Log In or Sign Up</a></li></ul>
 <h2 id="credittext">@</h1>
 </footer>
 

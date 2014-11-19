@@ -37,12 +37,12 @@ public class DataBase{
     //private String[] resultarr;
     private Context initialContext;
     private DataSource datasource;
-    private final String username = "adminSY8jDEe";
-    private final String url = "jdbc:mysql://127.13.42.2:3306/";
-    private final String databaseName = "thescoutingapp";
-    private final String password = "p6NQsSEvQhSs";
+//    private final String username = "root";
+//    private final String url = "jdbc:mysql://127.13.42.2:3306/";
+//    private final String databaseName = "scoutdb";
+//    private final String password = "5163";
     
-    private List<String> listOfString = new ArrayList<>();
+//    private List<String> listOfString = new ArrayList<>();
 
 //    public List<String> getAllData(){
 //        this.listOfString.add("Fuck you rish");
@@ -64,16 +64,16 @@ public class DataBase{
             Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-//        try {
-//            datasource = (DataSource)initialContext.lookup("java:comp/env/jdbc/scoutdb");
-//        } catch (NamingException ex) {
-//            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        try {
+            datasource = (DataSource)initialContext.lookup("java:comp/env/jdbc/scoutdb");
+        } catch (NamingException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         try {
-            //connection = datasource.getConnection();
+            connection = datasource.getConnection();
             //connection = DriverManager.getConnection("jdbc:mysql://localhost/scoutdb", "root", "5163");
-            connection = DriverManager.getConnection(this.url + this.databaseName, this.username, this.password);
+            //connection = DriverManager.getConnection(this.url + this.databaseName, this.username, this.password);
             //ConnectionFactory cf = (ConnectionFactory) initialContext.lookup("java:comp/env/jdbc/ScoutDB")
         } catch (SQLException ex) {
             Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);

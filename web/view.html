@@ -21,7 +21,7 @@
 
 <ul>
 
-<li><a href="view.html">View</a></li>
+<li><a href="view.html" class="current">View</a></li>
 <li><a href="compare.html">Compare</a></li>
 <li><a href="edit.html">Edit</a></li>
 <li><a href="suggest.html">Suggest</a></li>
@@ -29,21 +29,22 @@
 
 </ul>
 
+<h3 id="pagetitle">View</h3>
+
 </nav>
 <h1 id="border"> </h1>
 </header>
 
-<section>
+<section id="teamlist"><iframe id="teamlistframe" src="Data?type=teamList"></iframe></section>
 
-<h1>About</h1>
-<div id="teamimage" class="inline">
-<img src="img/team.jpg" class="inlineimage"/>
-<center class="captioncenter"><h2 class="caption">The Team</h2></center></div> <!-- CSS wouldn't work here so <center> it is -->
-<p>This app was developed starting in the 2013-2014 post-season and is currently undergoing development. It aims to simplify and consolidate the scouting efforts of FRC teams like us. </p>
+<section id="teamview">
+
+<iframe id="teamviewframe" src="Data?type=viewPage&teamNumber=0000"></iframe>
+
 </section>
 
 <footer>
-<ul><li><a href="about.html" class="current">About</a></li> <li><a href="login.html">Log In or Sign Up</a></li></ul>
+<ul><li><a href="about.html">About</a></li> <li><a href="login.html">Log In or Sign Up</a></li></ul>
 <h2 id="credittext">@</h1>
 </footer>
 

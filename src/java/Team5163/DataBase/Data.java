@@ -10,6 +10,7 @@ import Team5163.Logger.Logger;
 import Team5163.ObjectRegistry;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -95,13 +96,18 @@ public class Data extends HttpServlet {
 
     @Override
     public void init() {
-        //Logger.log("Start");
+        try {
+            //Logger.log("Start");
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+        }
         ObjectRegistry.getDataBase().connect();
     }
     
     @Override
     public void destroy() {
-        //Logger.log("destory");
+        //Logger.log("destroy");
         ObjectRegistry.getDataBase().close();
     }
 
