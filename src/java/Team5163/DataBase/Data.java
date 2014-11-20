@@ -38,8 +38,8 @@ public class Data extends HttpServlet {
             if (requestType.equalsIgnoreCase("teamList")) {
                 //return list of teams.
                 String[] listOfTeam;
-                if (request.getParameter("teamNumber") == null) {
-                    listOfTeam = ObjectRegistry.getDataBase().findTeam("");
+                if ((request.getParameter("teamNumber") == null) || request.getParameter("teamNumber").equals("")) {
+                    listOfTeam = new String[]{" "};
                 } else {
                     listOfTeam = ObjectRegistry.getDataBase().findTeam(request.getParameter("teamNumber"));
                 }

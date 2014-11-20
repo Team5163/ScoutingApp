@@ -23,7 +23,7 @@
 <body>
 
     <% request.getSession().setAttribute("mode", "compare");
-       request.getSession().setAttribute("login", "true");%>
+       request.getSession().setAttribute("login", "false");%>
     
 <header>
 <a href="view.jsp" id="logo"></a>

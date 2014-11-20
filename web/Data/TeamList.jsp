@@ -10,7 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="style.css" />
-        <title>JSP Page</title>
+        <title>Team List</title>
     </head>
     <body>
         <script>
@@ -25,12 +25,12 @@
                 parent.document.getElementById("teamcompareframe").setAttribute("src", url);
             }
             function setTeamList(url){
-                parent.document.getElementById("teamlistframe").setAttribute("src", url)
+                parent.document.getElementById("teamlistframe").setAttribute("src", url);
             }
                     <% int a = 0;
                         while(request.getAttribute("Result" + a) != null){
                     %> numbers[<%= a %>] = "<%= request.getAttribute("Result" + a) %>";<%
-                            a = a+ 1;
+                            a++;
                         } %>
             function getTable(){
                 <% if(request.getSession().getAttribute("mode").toString().equalsIgnoreCase("compare")){ %>
