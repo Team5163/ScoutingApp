@@ -36,7 +36,7 @@
 
 <section id="loginsection">
 <h2>If you already have an account, use the form below to sign in.</h2><br />
-<form id="login"><input type="textbox" placeholder="User Name" class="logininput formtop" required /><br /><input type="password" placeholder="Password" class="logininput" required /><br /><input type="button" value="Log In" class="loginbutton formbottom"/></form>
+<form id="login" method="POST" action="Login"><input type="textbox" placeholder="User Name" class="logininput formtop" name="user" required /><br /><input type="password" placeholder="Password" class="logininput" name="pass" required /><br /><input type="submit" value="Log In" class="loginbutton formbottom"/></form>
 
 </section>
 

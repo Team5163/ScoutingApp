@@ -53,7 +53,7 @@
         <table id="table">
             <tr></tr>
         </table>
-        <% if (request.getSession().getAttribute("login").toString().equalsIgnoreCase("true")){ %>
+        <% if ((request.getSession().getAttribute("login").toString().equalsIgnoreCase("true")) && !(request.getSession().getAttribute("mode").toString().equalsIgnoreCase("view"))){ %>
         <div id="createTeam">
             <a href="#" onclick="setFrame1('Data/CreateTeam.html');">Add Team</a>
         </div>

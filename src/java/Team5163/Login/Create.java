@@ -75,7 +75,7 @@ public class Create extends HttpServlet {
     
     @Override
     public void destroy(){
-        //Logger.log("destory");
+        //Logger.log("destroy");
         
     }
 

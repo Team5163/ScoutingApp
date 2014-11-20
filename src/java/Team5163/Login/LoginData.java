@@ -67,40 +67,42 @@ public class LoginData {
     }
 
     public void start() {
-        DocumentBuilderFactory docFactory;
-        DocumentBuilder docBuilder;
-        Document doc;
-        if (!started) {
-            try {
-                docFactory = DocumentBuilderFactory.newInstance();
-                docBuilder = docFactory.newDocumentBuilder();
-                doc = docBuilder.parse(filePath);
-                doc.getDocumentElement().normalize();
-
-                //Node loginData = doc.getFirstChild();
-                NodeList Users = doc.getElementsByTagName("User");
-
-                for (int a = 0; a < Users.getLength(); a++) {
-                    //log("Am at: " + Users.item(a).getNodeName());
-                    String name = Users.item(a).getAttributes().getNamedItem("name").getTextContent();
-                    String pass = Users.item(a).getTextContent();
-                    //log("AddedUser: " + name);
-                    //log("AddedHash: " + pass);
-                    mapOfUser.put(name, Integer.valueOf(pass));
-                }
-                
-                log("Login Data Started");
-                started = true;
-            } catch (ParserConfigurationException | SAXException | IOException ex) {
-                Logger.getLogger(LoginData.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
-            log("Already Started");
-        }
+//        DocumentBuilderFactory docFactory;
+//        DocumentBuilder docBuilder;
+//        Document doc;
+//        if (!started) {
+//            try {
+//                docFactory = DocumentBuilderFactory.newInstance();
+//                docBuilder = docFactory.newDocumentBuilder();
+//                doc = docBuilder.parse(filePath);
+//                doc.getDocumentElement().normalize();
+//
+//                //Node loginData = doc.getFirstChild();
+//                NodeList Users = doc.getElementsByTagName("User");
+//
+//                for (int a = 0; a < Users.getLength(); a++) {
+//                    //log("Am at: " + Users.item(a).getNodeName());
+//                    String name = Users.item(a).getAttributes().getNamedItem("name").getTextContent();
+//                    String pass = Users.item(a).getTextContent();
+//                    //log("AddedUser: " + name);
+//                    //log("AddedHash: " + pass);
+//                    mapOfUser.put(name, Integer.valueOf(pass));
+//                }
+//                
+//                log("Login Data Started");
+//                started = true;
+//            } catch (ParserConfigurationException | SAXException | IOException ex) {
+//                Logger.getLogger(LoginData.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        } else {
+//            log("Already Started");
+//        }
+        mapOfUser = ObjectRegistry.getDataBase().getLogins();
+        started = true;
     }
 
     public void stop() {
-        DocumentBuilderFactory docFactory;
+        /*DocumentBuilderFactory docFactory;
         DocumentBuilder docBuilder;
         Document doc;
         
@@ -134,10 +136,15 @@ public class LoginData {
             }
         } else {
             log("Did not start");
-        }
+        }*/
+    }
+    
+    public void refreshMap() {
+        mapOfUser = ObjectRegistry.getDataBase().getLogins();
     }
 
     public boolean checkUser(String name, String password) {
+        refreshMap();
         if (!started){
             this.start();
         }
@@ -146,20 +153,24 @@ public class LoginData {
                 return true;
             }
         }
+        
+        
         return false;
     }
 
     public void addUser(String name, String password) {
+        refreshMap();
         if (!started){
             this.start();
         }
         if (mapOfUser.containsKey(name)) {
-            mapOfUser.remove(name);
+            mapOfUser = ObjectRegistry.getDataBase().removeUser(name);
         }
-        mapOfUser.put(name, password.hashCode());
+        mapOfUser = ObjectRegistry.getDataBase().addUser(name, password.hashCode());
     }
 
     public void listUser() {
+        refreshMap();
         log("--------------------Begin to list User--------------------------");
         for (Map.Entry<String, Integer> entry : mapOfUser.entrySet()) {
             log("User: \"" + entry.getKey() + "\" with hash: \"" + entry.getValue().toString() + "\"");

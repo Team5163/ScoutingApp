@@ -8,7 +8,6 @@
 <!--[if IE]> <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
 <script type='text/javascript' src="js/hover.js"></script>
-
 <script>
             var URLTeamList = "Data?type=teamList&teamNumber=";
             function setFrame1(url){
@@ -23,7 +22,10 @@
 <body>
 
     <% request.getSession().setAttribute("mode", "view");
-       request.getSession().setAttribute("login", "false");%>
+    if (request.getSession().getAttribute("login") == null) {
+        request.getSession().setAttribute("login", "false");
+    }
+    %>
     
 <header>
 <a href="view.jsp" id="logo"></a>
@@ -64,7 +66,17 @@
 </section>
 
 <footer>
-<ul><li><a href="about.jsp">About</a></li> <li><a href="login.jsp">Log In or Sign Up</a></li></ul>
+<ul><li><a href="about.jsp">About</a></li>
+    
+<% if (!request.getSession().getAttribute("login").toString().equalsIgnoreCase("true")) {%> 
+<li><a href="login.jsp">Log In or Sign Up</a></li>
+<%} else {%>
+<form action="Server" id="logout">
+    <input type="hidden" name="keepin" value="false" />
+    <li><a class="link" onClick="document.getElementById('logout').submit();">Log Out</a></li>
+</form>
+<%}%>
+</ul>
 <h2 id="credittext">@</h1>
 </footer>
 

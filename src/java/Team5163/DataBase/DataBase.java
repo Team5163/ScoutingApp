@@ -6,21 +6,19 @@
 
 package Team5163.DataBase;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+//import java.io.IOException;
+//import java.io.PrintWriter;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+//import java.util.ArrayList;
+//import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 /**
@@ -92,6 +90,22 @@ public class DataBase{
         //Team5163.Logger.Logger.log("HOHOHOHOHOHOHOHOHOHOHOHOHOHOHOHOHOHOHOOHOHOHOOHOHOOHOHOHHOHOHOHOH");
         //System.out.println("test");
         //System.err.println("Test");
+    }
+    
+    public void checkConnection() {
+        if (connection == null) {
+            try {
+                if (datasource == null) {
+                    initialContext = new InitialContext();
+                    datasource = (DataSource)initialContext.lookup("java:comp/env/jdbc/scoutdb");
+                }
+                connection = datasource.getConnection();
+            } catch (SQLException ex) {
+                Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (NamingException ex) {
+                Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
     
     public int getLength() {
@@ -222,11 +236,52 @@ public class DataBase{
             rs = statement.executeQuery("SELECT * FROM teamdata WHERE teamnum = '" + teamNumber + "'");
             rs.next();
             rs.getString(field);
-            wasNull = rs.wasNull();
+            wasNull = rs.wasNull(); //What does wasNull do?
         } catch (SQLException ex) {
             Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
         }
         return !wasNull;
+    }
+    
+    public Map<String, Integer> getLogins() {
+        checkConnection(); //add these to all methods?
+        ResultSet rs;
+        Map<String, Integer> logins = new HashMap<>();
+        try {
+            statement = connection.createStatement();
+            rs = statement.executeQuery("SELECT * FROM logins");
+        
+        
+            while (rs.next()) {
+                logins.put(rs.getString("username"), rs.getInt("passhash"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return logins;
+    }
+    
+    public Map<String, Integer> addUser(String username, int passhash) {
+        PreparedStatement ps;
+        try {
+            Team5163.Logger.Logger.log("INSERT INTO logins VALUES(\"" + username + "\"," + passhash + ");");
+            ps = connection.prepareStatement("INSERT INTO logins VALUES(\"" + username + "\"," + passhash + ");");
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return getLogins();
+    }
+    
+    public Map<String, Integer> removeUser(String username) {
+        try {
+            statement.executeUpdate("DELETE FROM logins WHERE username=\"" + username + "\");");
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return getLogins();
     }
     
     public void close() {
