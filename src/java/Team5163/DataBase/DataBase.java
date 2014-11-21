@@ -120,7 +120,7 @@ public class DataBase {
         }
         ResultSet rs = null;
         try {
-            rs = statement.executeQuery("SELECT * FROM teamdata");
+            rs = statement.executeQuery("SELECT teamnum," + field + " FROM teamdata");
             rs.next();
         } catch (SQLException ex) {
             Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
@@ -198,10 +198,10 @@ public class DataBase {
         // The irony... 
         try {
             statement = connection.createStatement();
-            rs = statement.executeQuery("SELECT * FROM teamdata WHERE teamnum = '" + teamNumber + "'");
+            rs = statement.executeQuery("SELECT " + field + "FROM teamdata WHERE teamnum = '" + teamNumber + "'");
             rs.next();
             rs.getString(field);
-            wasNull = rs.wasNull(); //What does wasNull do?
+            wasNull = rs.wasNull();
         } catch (SQLException ex) {
             Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
         }
