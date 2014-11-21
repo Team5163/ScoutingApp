@@ -71,9 +71,9 @@ public class DataBase{
         }
         
         try {
-            connection = datasource.getConnection();
+            //connection = datasource.getConnection();
             //connection = DriverManager.getConnection("jdbc:mysql://localhost/scoutdb", "root", "5163");
-            //connection = DriverManager.getConnection(this.url + this.databaseName, this.username, this.password);
+            connection = DriverManager.getConnection(this.url + this.databaseName, this.username, this.password);
             //ConnectionFactory cf = (ConnectionFactory) initialContext.lookup("java:comp/env/jdbc/ScoutDB")
         } catch (SQLException ex) {
             Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);

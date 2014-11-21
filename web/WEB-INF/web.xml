@@ -16,6 +16,10 @@
         <servlet-name>Data</servlet-name>
         <servlet-class>Team5163.DataBase.Data</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Console</servlet-name>
+        <servlet-class>Team5163.Console.Console</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Server</servlet-name>
         <url-pattern>/Server</url-pattern>
@@ -35,17 +39,19 @@
         <servlet-name>Data</servlet-name>
         <url-pattern>/Data</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Console</servlet-name>
+        <url-pattern>/Console</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
-    
     <resource-ref>
-      <description>DB Connection</description>
-      <res-ref-name>jdbc/scoutdb</res-ref-name>
-      <res-type>javax.sql.DataSource</res-type>
-      <res-auth>Container</res-auth>
-  </resource-ref>
-  
+        <description>DB Connection</description>
+        <res-ref-name>jdbc/scoutdb</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+    </resource-ref>
 </web-app>
