@@ -8,15 +8,6 @@
         <!--[if IE]> <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
         <script type='text/javascript' src="js/hover.js"></script>
-        <script>
-            var URLTeamList = "Data?type=teamList&teamNumber=";
-            function setFrame1(url) {
-                document.getElementById("teamviewframe").setAttribute("src", url);
-            }
-            function setTeamList(url) {
-                document.getElementById("teamlistframe").setAttribute("src", url + document.getElementById("search").value);
-            }
-        </script>
 
     </head>
     <body>
@@ -51,18 +42,14 @@
             <h1 id="border"> </h1>
         </header>
 
-        <section id="teamlist">
-            <form id="teamlistform">
-                <input id="search" type="text" name="teamNumber" placeholder="Search Teams" oninput="setTeamList(URLTeamList)"/>        
-            </form>
-            <iframe id="teamlistframe" src="Data?type=teamList"></iframe>
-
-        </section>
-
-        <section id="teamview">
-
-            <iframe id="teamviewframe" src="Data?type=viewPage&teamNumber=<%out.print(Team5163.ObjectRegistry.getDataBase().getTeamNumber(String.valueOf(request.getSession().getAttribute("name"))));%>"></iframe>
-
+        <section id="ranking">
+        
+            <table>
+                
+                <tr><td>Test</td><td>Test</td></tr>
+                
+            </table>
+        
         </section>
 
         <footer>

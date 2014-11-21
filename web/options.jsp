@@ -40,7 +40,8 @@
 
         <section>
 
-            <h1>Placeholder Text</h1>
+            <h1>Options</h1><br />
+            <h2>Currently logged in as: <%=request.getSession().getAttribute("name")%></h2>
 
         </section>
 
