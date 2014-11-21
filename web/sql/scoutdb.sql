@@ -29,7 +29,7 @@ CREATE TABLE `events` (
   `startdate` date DEFAULT NULL,
   `enddate` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +38,7 @@ CREATE TABLE `events` (
 
 LOCK TABLES `events` WRITE;
 /*!40000 ALTER TABLE `events` DISABLE KEYS */;
-INSERT INTO `events` VALUES (1,'Granite State District Event','NH','0000-00-00','0000-00-00'),(2,'Granite State District Event','NH','2013-08-03','2013-08-05');
+INSERT INTO `events` VALUES (1,'Test District Event','New Hampshire','2014-11-21','2014-11-25');
 /*!40000 ALTER TABLE `events` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -74,16 +74,22 @@ DROP TABLE IF EXISTS `matchdata`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `matchdata` (
-  `eventid` int(4) DEFAULT NULL,
-  `matchid` int(4) DEFAULT NULL,
-  `red1` varchar(4) DEFAULT NULL,
-  `red2` varchar(4) DEFAULT NULL,
-  `red3` varchar(4) DEFAULT NULL,
-  `blue1` varchar(4) DEFAULT NULL,
-  `blue2` varchar(4) DEFAULT NULL,
-  `blue3` varchar(4) DEFAULT NULL,
-  `redscore` int(4) DEFAULT NULL,
-  `bluescore` int(4) DEFAULT NULL
+  `eventid` int(11) NOT NULL,
+  `matchnum` int(11) NOT NULL,
+  `red1score` int(11) NOT NULL,
+  `red2score` int(11) NOT NULL,
+  `red3score` int(11) NOT NULL,
+  `blue1score` int(11) NOT NULL,
+  `blue2score` int(11) NOT NULL,
+  `blue3score` int(11) NOT NULL,
+  `redpenalty` int(11) NOT NULL,
+  `bluepenalty` int(11) NOT NULL,
+  `red1` varchar(4) NOT NULL,
+  `red2` varchar(4) NOT NULL,
+  `red3` varchar(4) NOT NULL,
+  `blue1` varchar(4) NOT NULL,
+  `blue2` varchar(4) NOT NULL,
+  `blue3` varchar(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -93,7 +99,7 @@ CREATE TABLE `matchdata` (
 
 LOCK TABLES `matchdata` WRITE;
 /*!40000 ALTER TABLE `matchdata` DISABLE KEYS */;
-INSERT INTO `matchdata` VALUES (1,3,'0000','0001','0002','0003','0004','0005',52,63),(1,3,'0000','0001','0002','0003','0004','0005',52,63),(1,2,'0005','0004','0003','0002','0001','0000',52,63);
+INSERT INTO `matchdata` VALUES (1,1,25,25,0,0,50,25,0,0,'0000','0009','2353','0007','1934','6874'),(1,2,25,25,0,0,50,25,0,0,'0001','0008','6434','0006','6346','395'),(1,3,25,25,0,0,50,25,0,0,'0002','0007','0001','0005','3236','323'),(1,4,25,25,0,0,50,25,0,0,'0003','0006','0002','0004','2366','2350'),(1,5,25,25,0,0,50,25,0,0,'0004','0005','0003','0002','2352','2653'),(1,6,25,25,0,0,50,25,0,0,'0005','0004','0004','0003','2315','4642'),(1,7,25,25,0,0,50,25,0,0,'0006','0003','0005','0007','2652','4092'),(1,8,25,25,0,0,50,25,0,0,'0007','0002','0006','0008','9642','1102'),(1,9,25,25,0,0,50,25,0,0,'0008','0001','0007','0000','4347','1154'),(1,10,25,25,0,0,50,25,0,0,'0009','0000','0008','0009','3474','1245');
 /*!40000 ALTER TABLE `matchdata` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -161,4 +167,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-11-21  0:10:16
+-- Dump completed on 2014-11-21 16:50:56
