@@ -51,7 +51,8 @@ DROP TABLE IF EXISTS `logins`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `logins` (
   `username` varchar(25) NOT NULL,
-  `passhash` int(11) NOT NULL
+  `passhash` int(11) NOT NULL,
+  `teamnum` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -61,7 +62,7 @@ CREATE TABLE `logins` (
 
 LOCK TABLES `logins` WRITE;
 /*!40000 ALTER TABLE `logins` DISABLE KEYS */;
-INSERT INTO `logins` VALUES ('a',97);
+INSERT INTO `logins` VALUES ('a',97,5163),('rish',3433489,5163);
 /*!40000 ALTER TABLE `logins` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -125,7 +126,7 @@ CREATE TABLE `teamdata` (
 
 LOCK TABLES `teamdata` WRITE;
 /*!40000 ALTER TABLE `teamdata` DISABLE KEYS */;
-INSERT INTO `teamdata` VALUES ('0000','1','2','3','4','5','6','7','8','9','10','11'),('0001','1','2','3','4','5','6','7','8','9','10','11'),('0003','1','2','3','4','5','6','7','8','9','10','11'),('0002','1','2','3','4','5','6','7','8','9','10','11'),('0004','1','2','3','4','5','6','7','8','9','10','11'),('0005','1','2','3','4','5','6','7','8','9','10','11'),('1005','1','2','3','4','5','6','7','8','9','10','11'),('1004','1','2','3','4','5','6','7','8','9','10','11'),('1003','1','2','3','4','5','6','7','8','9','10','11'),('1002','1','2','3','4','5','6','7','8','9','10','11'),('1001','1','2','3','4','5','6','7','8','9','10','11'),('1000','1','2','3','4','5','6','7','8','9','10','11'),('3333',NULL,NULL,NULL,NULL,NULL,NULL,'John Z. Doe 555-867-5309 jzdoe@testing.edu',NULL,NULL,NULL,NULL),('5163','The Aluminum Warriors','4 motors 6 wheels','10 units','40kg','Rish Shadra','Kyle Heavey','Yiwen Dong','Rish Shadra','Mike McFarland','PTC EMC','Us!');
+INSERT INTO `teamdata` VALUES ('0000','1','4 omni wheels 2 motors','15','12','John Doe','Jack Dowe','Person Name','Person','Nosrep','PTC, EMC','Thing'),('0001','1','2','3','4','5','6','7','8','9','10','11'),('0003','1','2','3','4','5','6','7','8','9','10','11'),('0002','1','2','3','4','5','6','7','8','9','10','11'),('0004','1','2','3','4','5','6','7','8','9','10','11'),('0005','1','2','3','4','5','6','7','8','9','10','11'),('1005','1','2','3','4','5','6','7','8','9','10','11'),('1004','1','2','3','4','5','6','7','8','9','10','11'),('1003','1','2','3','4','5','6','7','8','9','10','11'),('1002','1','2','3','4','5','6','7','8','9','10','11'),('1001','1','2','3','4','5','6','7','8','9','10','11'),('1000','1','2','3','4','5','6','7','8','9','10','11'),('3333',NULL,NULL,NULL,NULL,NULL,NULL,'John Z. Doe 555-867-5309 jzdoe@testing.edu',NULL,NULL,NULL,NULL),('5163','The Aluminum Warriors','4 motors 6 wheels','10 units','40kg','Rish Shadra','Kyle Heavey','Yiwen Dong','Rish Shadra','Mike McFarland','PTC EMC','Us!');
 /*!40000 ALTER TABLE `teamdata` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -160,4 +161,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-11-20 15:37:50
+-- Dump completed on 2014-11-21  0:10:16

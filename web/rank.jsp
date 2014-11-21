@@ -43,13 +43,18 @@
         </header>
 
         <section id="ranking">
-        
+
             <table>
-                
+
                 <tr><td>Test</td><td>Test</td></tr>
-                
+
             </table>
-        
+            <!-- Replace this with servlet after testing -->
+            <%
+            
+            out.println(Team5163.ObjectRegistry.getDataBase().getTeamMatches("1934").length);
+            
+            %>
         </section>
 
         <footer>
