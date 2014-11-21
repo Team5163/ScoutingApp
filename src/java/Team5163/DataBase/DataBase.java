@@ -30,7 +30,6 @@ public class DataBase {
     private int length;
     private Context initialContext;
     private DataSource datasource;
-    private ResultSet rs;
 
     public void connect() {
 
@@ -168,7 +167,6 @@ public class DataBase {
 
     public void addTeam(String teamNumber) {
         checkConnection();
-        PreparedStatement ps;
         if (!haveTeam(teamNumber)) {
             try {
                 ps = connection.prepareStatement("INSERT INTO teamdata VALUES ('" + teamNumber + "',null,null,null,null,null,null,null,null,null,null,null)");
@@ -184,7 +182,6 @@ public class DataBase {
 
     public void setData(String teamNumber, String field, String data) {
         checkConnection();
-        PreparedStatement ps;
         if (getLength("SELECT * FROM teamdata WHERE teamnum = '" + teamNumber + "'") == 0) {
             Team5163.Logger.Logger.log("Team " + teamNumber + " does not exist. Field " + field + " not updated to " + data + ".");
         } else {
@@ -236,7 +233,6 @@ public class DataBase {
 
     public Map<String, Integer> addUser(String username, int passhash, int teamnum) {
         checkConnection();
-        PreparedStatement ps;
         try {
 //            Team5163.Logger.Logger.log("INSERT INTO logins VALUES(\"" + username + "\"," + passhash + ");");
             ps = connection.prepareStatement("INSERT INTO logins VALUES(\"" + username + "\"," + passhash + "," + teamnum + ");");
@@ -302,12 +298,7 @@ public class DataBase {
     }
     
     private void closeStatement() {
-//        try {
-//            statement.closeOnCompletion();
-//            ps.closeOnCompletion();
-//        } catch (SQLException ex) {
-//            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        //To be run after every function call in this class.
     }
     
     public void close() {
