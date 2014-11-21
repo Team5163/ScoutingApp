@@ -58,29 +58,31 @@ public class DataBase {
     }
 
     public void checkConnection() {
-        if (connection == null) {
-            try {
-                if (datasource == null) {
-                    initialContext = new InitialContext();
-                    datasource = (DataSource) initialContext.lookup("java:comp/env/jdbc/scoutdb");
-                }
-                connection = datasource.getConnection();
-            } catch (SQLException ex) {
-                Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (NamingException ex) {
-                Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
-
-    public int getLength() {
         try {
+            while (connection == null) {
+                try {
+                    if (datasource == null) {
+                        initialContext = new InitialContext();
+                        datasource = (DataSource) initialContext.lookup("java:comp/env/jdbc/scoutdb");
+                    }
+                    connection = datasource.getConnection();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (NamingException ex) {
+                    Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
             while (!connection.isValid(0)) {
                 this.connect();
             }
         } catch (SQLException ex) {
             Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public int getLength() {
+        checkConnection();
         try {
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT teamnum FROM teamdata");
@@ -93,13 +95,7 @@ public class DataBase {
     }
 
     public int getLength(String query) {
-        try {
-            while (!connection.isValid(0)) {
-                this.connect();
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        checkConnection();
         try {
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -112,6 +108,7 @@ public class DataBase {
     }
 
     public String getData(String teamNumber, String field) {
+        checkConnection();
         String data = null;
         try {
             statement = connection.createStatement();
@@ -140,8 +137,9 @@ public class DataBase {
     }
 
     public String[] findTeam(String number) {
+        checkConnection();
         String[] result = new String[getLength("SELECT teamnum FROM teamdata WHERE teamnum LIKE '" + number + "%' ORDER BY ABS(teamnum)")];
-        ResultSet rs = null;
+        ResultSet rs;
         try {
             statement = connection.createStatement();
             rs = statement.executeQuery("SELECT teamnum FROM teamdata WHERE teamnum LIKE '" + number + "%' ORDER BY ABS(teamnum)");
@@ -159,11 +157,13 @@ public class DataBase {
     }
 
     public boolean haveTeam(String teamNumber) {
+        checkConnection();
         return getLength("SELECT * FROM teamdata WHERE teamnum='" + teamNumber + "'") != 0;
     }
 
     public void addTeam(String teamNumber) {
-        PreparedStatement ps = null;
+        checkConnection();
+        PreparedStatement ps;
         if (!haveTeam(teamNumber)) {
             try {
                 ps = connection.prepareStatement("INSERT INTO teamdata VALUES ('" + teamNumber + "',null,null,null,null,null,null,null,null,null,null,null)");
@@ -178,7 +178,8 @@ public class DataBase {
     }
 
     public void setData(String teamNumber, String field, String data) {
-        PreparedStatement ps = null;
+        checkConnection();
+        PreparedStatement ps;
         if (getLength("SELECT * FROM teamdata WHERE teamnum = '" + teamNumber + "'") == 0) {
             Team5163.Logger.Logger.log("Team " + teamNumber + " does not exist. Field " + field + " not updated to " + data + ".");
         } else {
@@ -193,12 +194,13 @@ public class DataBase {
     }
 
     public boolean haveData(String teamNumber, String field) {
+        checkConnection();
         ResultSet rs;
-        Boolean wasNull = null;
+        Boolean wasNull = null; //Maybe change to true?
         // The irony... 
         try {
             statement = connection.createStatement();
-            rs = statement.executeQuery("SELECT " + field + "FROM teamdata WHERE teamnum = '" + teamNumber + "'");
+            rs = statement.executeQuery("SELECT " + field + " FROM teamdata WHERE teamnum = '" + teamNumber + "'");
             rs.next();
             rs.getString(field);
             wasNull = rs.wasNull();
@@ -209,7 +211,7 @@ public class DataBase {
     }
 
     public Map<String, Integer> getLogins() {
-        checkConnection(); //add these to all methods?
+        checkConnection();
         ResultSet rs;
         Map<String, Integer> logins = new HashMap<>();
         try {
@@ -227,6 +229,7 @@ public class DataBase {
     }
 
     public Map<String, Integer> addUser(String username, int passhash, int teamnum) {
+        checkConnection();
         PreparedStatement ps;
         try {
 //            Team5163.Logger.Logger.log("INSERT INTO logins VALUES(\"" + username + "\"," + passhash + ");");
@@ -240,6 +243,7 @@ public class DataBase {
     }
 
     public Map<String, Integer> removeUser(String username) {
+        checkConnection();
         try {
             statement.executeUpdate("DELETE FROM logins WHERE username=\"" + username + "\");");
         } catch (SQLException ex) {
@@ -264,6 +268,11 @@ public class DataBase {
         }
 
         return teamnum;
+    }
+
+    public void setTeamNumber(String username, int number) {
+        checkConnection();
+
     }
 
     public void close() {
