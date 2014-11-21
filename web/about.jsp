@@ -1,52 +1,53 @@
 <html>
-<head>
-<link rel="stylesheet" href="style.css" />
-<title>Team #### Scouting</title>
+    <head>
+        <link rel="stylesheet" href="style.css" />
+        <title>Team #### Scouting</title>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
-<!--[if IE]> <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+        <!--[if IE]> <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
-<script type='text/javascript' src="js/hover.js"></script>
+        <script type='text/javascript' src="js/hover.js"></script>
 
-</head>
-<body>
+    </head>
+    <body>
         <% request.getSession().setAttribute("mode", "about");
             if (request.getSession().getAttribute("login") == null) {
                 request.getSession().setAttribute("login", "false");
             }%>
-<header>
-<a href="view.html" id="logo"></a>
+        <header>
+            <a href="view.html" id="logo"></a>
 
-<nav>
+            <nav>
 
-<a href="#" id="menu-icon"></a>
+                <a href="#" id="menu-icon"></a>
 
-<ul>
+                <ul>
 
-<li><a href="view.html">View</a></li>
-<li><a href="compare.html">Compare</a></li>
-<li><a href="edit.html">Edit</a></li>
-<li><a href="suggest.html">Suggest</a></li>
-<li><a href="options.html">Options</a></li>
+                    <li><a href="view.jsp">View</a></li>
+                    <li><a href="compare.jsp">Compare</a></li>
+                    <li><a href="rank.jsp">Rank</a></li>
+                    <li><a href="edit.jsp">Edit</a></li>
+                    <li><a href="suggest.jsp">Suggest</a></li>
+                    <li><a href="options.jsp">Options</a></li>
 
-</ul>
+                </ul>
 
-</nav>
-<h1 id="border"> </h1>
-</header>
+            </nav>
+            <h1 id="border"> </h1>
+        </header>
 
-<section>
+        <section>
 
-<h1>About</h1>
-<div id="teamimage" class="inline">
-<img src="img/team.jpg" class="inlineimage"/>
-<center class="captioncenter"><h2 class="caption">The Team</h2></center></div> <!-- CSS wouldn't work here so <center> it is -->
-<p>This app was developed starting in the 2013-2014 post-season and is currently undergoing development. It aims to simplify and consolidate the scouting efforts of FRC teams like us. </p>
-</section>
+            <h1>About</h1>
+            <div id="teamimage" class="inline">
+                <img src="img/team.jpg" class="inlineimage"/>
+                <center class="captioncenter"><h2 class="caption">The Team</h2></center></div> <!-- CSS wouldn't work here so <center> it is -->
+            <p>This app was developed starting in the 2013-2014 post-season and is currently undergoing development. It aims to simplify and consolidate the scouting efforts of FRC teams like us. </p>
+        </section>
 
         <footer>
-            <ul><li><a href="about.jsp">About</a></li>
+            <ul><li><a href="about.jsp" class="current">About</a></li>
 
                 <% if (!request.getSession().getAttribute("login").toString().equalsIgnoreCase("true")) {%> 
                 <li><a href="login.jsp">Log In or Sign Up</a></li>
@@ -60,7 +61,7 @@
             <h2 id="credittext">@</h2>
         </footer>
 
-</body>
+    </body>
 
 </html>
 </html>

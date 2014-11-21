@@ -1,14 +1,13 @@
 <html>
     <head>
         <link rel="stylesheet" href="style.css" />
-        <title>Maybe use one table with three columns for this section?</title>
+        <title>Scouting App</title>
 
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
         <!--[if IE]> <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
         <script type='text/javascript' src="js/hover.js"></script>
-
         <script>
             var URLTeamList = "Data?type=teamList&teamNumber=";
             function setFrame1(url) {
@@ -22,10 +21,11 @@
     </head>
     <body>
 
-        <% request.getSession().setAttribute("mode", "compare");
+        <% request.getSession().setAttribute("mode", "view");
             if (request.getSession().getAttribute("login") == null) {
                 request.getSession().setAttribute("login", "false");
-            }%>
+            }
+        %>
 
         <header>
             <a href="view.jsp" id="logo"></a>
@@ -37,8 +37,8 @@
                 <ul>
 
                     <li><a href="view.jsp">View</a></li>
-                    <li><a href="compare.jsp" class="current">Compare</a></li>
-                    <li><a href="rank.jsp">Rank</a></li>
+                    <li><a href="compare.jsp">Compare</a></li>
+                    <li><a href="rank.jsp" class="current">Rank</a></li>
                     <li><a href="edit.jsp">Edit</a></li>
                     <li><a href="suggest.jsp">Suggest</a></li>
                     <li><a href="options.jsp">Options</a></li>
@@ -61,11 +61,9 @@
 
         <section id="teamview">
 
-            <iframe id="teamviewframe" src="Data?type=viewPage&teamNumber=0000"></iframe>
+            <iframe id="teamviewframe" src="Data?type=viewPage&teamNumber=<%out.print(Team5163.ObjectRegistry.getDataBase().getTeamNumber(String.valueOf(request.getSession().getAttribute("name"))));%>"></iframe>
 
         </section>
-
-        <section id="teamcompare"><iframe id="teamcompareframe" src="Data?type=viewPage&teamNumber=0000"></iframe></section>
 
         <footer>
             <ul><li><a href="about.jsp">About</a></li>
@@ -83,6 +81,5 @@
         </footer>
 
     </body>
-
 
 </html>

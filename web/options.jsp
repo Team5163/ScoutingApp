@@ -1,47 +1,48 @@
 <html>
-<head>
-<link rel="stylesheet" href="style.css" />
-<title>Team #### Scouting</title>
+    <head>
+        <link rel="stylesheet" href="style.css" />
+        <title>Team #### Scouting</title>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
-<!--[if IE]> <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+        <!--[if IE]> <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
-<script type='text/javascript' src="js/hover.js"></script>
+        <script type='text/javascript' src="js/hover.js"></script>
 
-</head>
-<body>
+    </head>
+    <body>
         <% request.getSession().setAttribute("mode", "options");
             if (request.getSession().getAttribute("login") == null) {
                 request.getSession().setAttribute("login", "false");
             }%>
-<header>
+        <header>
 
-<a href="view.html" id="logo"></a>
+            <a href="view.html" id="logo"></a>
 
-<nav>
+            <nav>
 
-<a href="#" id="menu-icon"></a>
+                <a href="#" id="menu-icon"></a>
 
-<ul>
+                <ul>
 
-<li><a href="view.html">View</a></li>
-<li><a href="compare.html">Compare</a></li>
-<li><a href="edit.html">Edit</a></li>
-<li><a href="suggest.html">Suggest</a></li>
-<li><a href="options.html" class="current">Options</a></li>
+                    <li><a href="view.jsp">View</a></li>
+                    <li><a href="compare.jsp">Compare</a></li>
+                    <li><a href="rank.jsp">Rank</a></li>
+                    <li><a href="edit.jsp">Edit</a></li>
+                    <li><a href="suggest.jsp">Suggest</a></li>
+                    <li><a href="options.jsp" class="current">Options</a></li>
 
-</ul>
+                </ul>
 
-</nav>
-<h1 id="border"> </h1>
-</header>
+            </nav>
+            <h1 id="border"> </h1>
+        </header>
 
-<section>
+        <section>
 
-<h1>Placeholder Text</h1>
+            <h1>Placeholder Text</h1>
 
-</section>
+        </section>
 
         <footer>
             <ul><li><a href="about.jsp">About</a></li>
@@ -59,7 +60,7 @@
         </footer>
 
 
-</body>
+    </body>
 
 </html>
 </html>

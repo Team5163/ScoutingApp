@@ -1,49 +1,54 @@
 <html>
-<head>
-<link rel="stylesheet" href="style.css" />
-<title>Team #### Scouting</title>
+    <head>
+        <link rel="stylesheet" href="style.css" />
+        <title>Team #### Scouting</title>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
-<!--[if IE]> <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+        <!--[if IE]> <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
-<script type='text/javascript' src="js/hover.js"></script>
+        <script type='text/javascript' src="js/hover.js"></script>
 
-</head>
-<body>
+    </head>
+    <body>
+        <% request.getSession().setAttribute("mode", "view");
+            if (request.getSession().getAttribute("login") == null) {
+                request.getSession().setAttribute("login", "false");
+            }
+        %>
+        <header>
 
-<header>
+            <a href="view.html" id="logo"></a>
 
-<a href="view.html" id="logo"></a>
+            <nav>
 
-<nav>
+                <a href="#" id="menu-icon"></a>
 
-<a href="#" id="menu-icon"></a>
+                <ul>
 
-<ul>
+                    <li><a href="view.jsp">View</a></li>
+                    <li><a href="compare.jsp">Compare</a></li>
+                    <li><a href="rank.jsp">Rank</a></li>
+                    <li><a href="edit.jsp">Edit</a></li>
+                    <li><a href="suggest.jsp">Suggest</a></li>
+                    <li><a href="options.jsp">Options</a></li>
 
-<li><a href="view.html">View</a></li>
-<li><a href="compare.html">Compare</a></li>
-<li><a href="edit.html">Edit</a></li>
-<li><a href="suggest.html">Suggest</a></li>
-<li><a href="options.html">Options</a></li>
+                </ul>
 
-</ul>
+            </nav>
+            <h1 id="border"> </h1>
+        </header>
 
-</nav>
-<h1 id="border"> </h1>
-</header>
+        <section id="loginsection">
+            <h2>If you already have an account, use the form below to sign in.</h2><br />
+            <form id="login" method="POST" action="Login"><input type="textbox" placeholder="User Name" class="logininput formtop" name="user" required /><br /><input type="password" placeholder="Password" class="logininput" name="pass" required /><br /><input type="submit" value="Log In" class="loginbutton formbottom"/></form>
 
-<section id="loginsection">
-<h2>If you already have an account, use the form below to sign in.</h2><br />
-<form id="login" method="POST" action="Login"><input type="textbox" placeholder="User Name" class="logininput formtop" name="user" required /><br /><input type="password" placeholder="Password" class="logininput" name="pass" required /><br /><input type="submit" value="Log In" class="loginbutton formbottom"/></form>
+        </section>
 
-</section>
-
-<section id="signupsection">
-<h2>At this time, signing up is only possible via an invite. To request an invite, kindly fill out the form below.</h2>
-<form id="signup"></form>
-</section>
+        <section id="signupsection">
+            <h2>At this time, signing up is only possible via an invite. To request an invite, kindly fill out the form below.</h2>
+            <form id="signup"></form>
+        </section>
         <footer>
             <ul><li><a href="about.jsp">About</a></li>
 
@@ -58,7 +63,7 @@
             </ul>
             <h2 id="credittext">@</h2>
         </footer>
-</body>
+    </body>
 
 </html>
 </html>
