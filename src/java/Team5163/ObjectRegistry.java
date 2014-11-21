@@ -4,10 +4,10 @@ package Team5163;
 import Team5163.DataBase.DataBase;
 import Team5163.Logger.Logger;
 import Team5163.Login.LoginData;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.logging.Level;
+//import java.io.IOException;
+//import java.util.HashMap;
+//import java.util.Map;
+//import java.util.logging.Level;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -21,8 +21,8 @@ import java.util.logging.Level;
  */
 public class ObjectRegistry {
     
-    private static DataBase dataBase = new DataBase();
-    private static Logger logger = new Logger();
+    private static final DataBase dataBase = new DataBase();
+    private static final Logger logger = new Logger();
 //    private static Map<String, Integer> users = new HashMap(){{
 //        this.put("Yiwen", new String("1234").hashCode());
 //    }};
@@ -44,7 +44,7 @@ public class ObjectRegistry {
 //    }
     
     public static String getWorkingDir(){
-        return workingDir;
+        return workingDir; //This is still using openshift..
     }
     
     public static LoginData getLoginData(){

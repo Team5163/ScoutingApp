@@ -40,120 +40,25 @@ public class LoginData {
 
     private boolean started = false;
     private Map<String, Integer> mapOfUser = new HashMap<>();
-    private String filePath = ObjectRegistry.getWorkingDir() + File.separator + "users.xml";
-    private DocumentBuilderFactory docFactory;
-    private DocumentBuilder docBuilder;
-    private Document doc;
 
     public LoginData() {
-//        try {
-//            docFactory = DocumentBuilderFactory.newInstance();
-//            docBuilder = docFactory.newDocumentBuilder();
-//            doc = docBuilder.parse(filePath);
-//            doc.getDocumentElement().normalize();
-//
-//            //Node loginData = doc.getFirstChild();
-//            NodeList Users = doc.getElementsByTagName("User");
-//
-//            for (int a = 0; a < Users.getLength(); a++) {
-//                //log("Am at: " + Users.item(a).getNodeName());
-//                String name = Users.item(a).getAttributes().getNamedItem("name").getTextContent();
-//                String pass = Users.item(a).getTextContent();
-//                //log("AddedUser: " + name);
-//                //log("AddedHash: " + pass);
-//                mapOfUser.put(name, Integer.valueOf(pass));
-//            }
-//            started = true;
-//        } catch (ParserConfigurationException | SAXException | IOException ex) {
-//            Logger.getLogger(LoginData.class.getName()).log(Level.SEVERE, null, ex);
-//        }
     }
 
     public void start() {
-        DocumentBuilderFactory docFactory;
-        DocumentBuilder docBuilder;
-        Document doc;
-        if (!started) {
-            File f = new File(filePath);
-            PrintWriter pw = null;
-            if (!f.exists()) {
-                try {
-                    pw = new PrintWriter(f, "UTF-8");
-                    f.createNewFile();
-                } catch (IOException ex) {
-                    Logger.getLogger(LoginData.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-                pw.println("<LoginData>\n<User name=\"the\">1509442</User>\n</LoginData>");
-                pw.close();
-            }
-            try {
-                docFactory = DocumentBuilderFactory.newInstance();
-                docBuilder = docFactory.newDocumentBuilder();
-                doc = docBuilder.parse(filePath);
-                doc.getDocumentElement().normalize();
-
-                //Node loginData = doc.getFirstChild();
-                NodeList Users = doc.getElementsByTagName("User");
-
-                for (int a = 0; a < Users.getLength(); a++) {
-                    //log("Am at: " + Users.item(a).getNodeName());
-                    String name = Users.item(a).getAttributes().getNamedItem("name").getTextContent();
-                    String pass = Users.item(a).getTextContent();
-                    //log("AddedUser: " + name);
-                    //log("AddedHash: " + pass);
-                    mapOfUser.put(name, Integer.valueOf(pass));
-                }
-
-                log("Login Data Started");
-                started = true;
-            } catch (ParserConfigurationException | SAXException | IOException ex) {
-                Logger.getLogger(LoginData.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
-            log("Already Started");
-        }
+        mapOfUser = ObjectRegistry.getDataBase().getLogins();
+        started = true;
     }
 
     public void stop() {
-        DocumentBuilderFactory docFactory;
-        DocumentBuilder docBuilder;
-        Document doc;
+//Close the database connection, maybe?
+    }
 
-        if (started) {
-            try {
-                docFactory = DocumentBuilderFactory.newInstance();
-                docBuilder = docFactory.newDocumentBuilder();
-                doc = docBuilder.newDocument();
-
-                Element rootElement = doc.createElement("LoginData");
-                doc.appendChild(rootElement);
-
-                for (Map.Entry<String, Integer> entry : mapOfUser.entrySet()) {
-                    Element users = doc.createElement("User");
-                    users.setAttribute("name", entry.getKey());
-                    users.setTextContent(entry.getValue().toString());
-                    rootElement.appendChild(users);
-                }
-                //doc.createElement("User").setTextContent("hash");.setAttribute("naem", "username");
-                TransformerFactory transformerFactory = TransformerFactory.newInstance();
-                Transformer transformer = transformerFactory.newTransformer();
-                DOMSource source = new DOMSource(doc);
-                StreamResult result = new StreamResult(new File(filePath));
-                transformer.transform(source, result);
-                log("Login Data stoped.");
-                this.finalize();
-            } catch (TransformerException ex) {
-                Logger.getLogger(LoginData.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (Throwable ex) {
-                Logger.getLogger(LoginData.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
-            log("Did not start");
-        }
+    public void refreshMap() {
+        mapOfUser = ObjectRegistry.getDataBase().getLogins();
     }
 
     public boolean checkUser(String name, String password) {
+        refreshMap();
         if (!started) {
             this.start();
         }
@@ -165,17 +70,19 @@ public class LoginData {
         return false;
     }
 
-    public void addUser(String name, String password) {
+    public void addUser(String name, String password, int teamnum) {
+        refreshMap();
         if (!started) {
             this.start();
         }
         if (mapOfUser.containsKey(name)) {
-            mapOfUser.remove(name);
+            mapOfUser = ObjectRegistry.getDataBase().removeUser(name);
         }
-        mapOfUser.put(name, password.hashCode());
+        mapOfUser = ObjectRegistry.getDataBase().addUser(name, password.hashCode(), teamnum);
     }
 
     public void listUser() {
+        refreshMap();
         log("--------------------Begin to list User--------------------------");
         for (Map.Entry<String, Integer> entry : mapOfUser.entrySet()) {
             log("User: \"" + entry.getKey() + "\" with hash: \"" + entry.getValue().toString() + "\"");

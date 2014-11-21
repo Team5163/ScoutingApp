@@ -3,24 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Team5163.DataBase;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 /**
@@ -28,28 +21,16 @@ import javax.sql.DataSource;
  * @author Rish Shadra
  */
 @WebServlet(name = "DataBase", urlPatterns = {"/DataBase"})
-public class DataBase{
+//TODO: Rewrite to use PareparedStatement
+public class DataBase {
+
     private Connection connection;
-    //private PreparedStatement pstatement;
     private Statement statement;
-    //private ResultSet result;
+    private PreparedStatement ps;
     private int length;
-    //private String[] resultarr;
     private Context initialContext;
     private DataSource datasource;
-    private final String username = "adminSY8jDEe";
-    private final String url = "jdbc:mysql://127.13.42.2:3306/";
-    private final String databaseName = "thescoutingapp";
-    private final String password = "p6NQsSEvQhSs";
-    
-    private List<String> listOfString = new ArrayList<>();
 
-//    public List<String> getAllData(){
-//        this.listOfString.add("Fuck you rish");
-//        this.listOfString.add("Why?");
-//        this.listOfString.add("Why not?? *said nobody ever*");
-//        return listOfString;
-//    }
     public void connect() {
         
 //        try {
@@ -71,78 +52,81 @@ public class DataBase{
         }
         
         try {
-            //connection = datasource.getConnection();
-            //connection = DriverManager.getConnection("jdbc:mysql://localhost/scoutdb", "root", "5163");
-            connection = DriverManager.getConnection(this.url + this.databaseName, this.username, this.password);
-            //ConnectionFactory cf = (ConnectionFactory) initialContext.lookup("java:comp/env/jdbc/ScoutDB")
+            datasource = (DataSource) initialContext.lookup("java:comp/env/jdbc/scoutdb");
+        } catch (NamingException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        try {
+            connection = datasource.getConnection();
         } catch (SQLException ex) {
             Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-//        try {
-//            
-//            //statement = connection.createStatement();
-//            //ResultSet rs = statement.executeQuery("SELECT * FROM Test");
-//            //Team5163.Logger.Logger.log(String.valueOf(rs.getRow()));
-//            //Team5163.Logger.Logger.log(rs.);
-//            //Team5163.Logger.Logger.log("HEHEHEHEHEHEHEHEHEEHEHEHEHEHEHHEHEHEHEHEHEHEHEHEHEHEHEHEHEHEE");
-//        } catch (SQLException ex) {
-//            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-        //Team5163.Logger.Logger.log("HOHOHOHOHOHOHOHOHOHOHOHOHOHOHOHOHOHOHOOHOHOHOOHOHOOHOHOHHOHOHOHOH");
-        //System.out.println("test");
-        //System.err.println("Test");
+
     }
-    
-    public int getLength() {
+
+    private void checkConnection() {
         try {
-            while(!connection.isValid(0)){
+            while (connection == null) {
+                try {
+                    if (datasource == null) {
+                        initialContext = new InitialContext();
+                        datasource = (DataSource) initialContext.lookup("java:comp/env/jdbc/scoutdb");
+                    }
+                    connection = datasource.getConnection();
+                } catch (SQLException | NamingException ex) {
+                    Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            while (!connection.isValid(0)) {
                 this.connect();
             }
+            
         } catch (SQLException ex) {
             Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private int getLength() {
+        checkConnection();
         try {
-            statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM teamdata");
-            resultSet.last();    
-            length = resultSet.getRow();
+            ps = connection.prepareStatement("SELECT teamnum FROM teamdata");
+            ResultSet rs = ps.executeQuery();
+            rs.last();
+            length = rs.getRow();
         } catch (SQLException ex) {
             Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
         }
+        closeStatement();
         return length;
     }
-    
-    
-    public int getLength(String query) {
+
+    private int getLength(String query) {
+        checkConnection();
         try {
-            while(!connection.isValid(0)){
-                this.connect();
-            }
+            ps = connection.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            rs.last();
+            length = rs.getRow();
         } catch (SQLException ex) {
             Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
         }
-        try {
-            statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(query);
-            resultSet.last();    
-            length = resultSet.getRow();
-        } catch (SQLException ex) {
-            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        closeStatement();
         return length;
     }
-    
-    public String getData(String teamNumber, String field){
+
+    public String getData(String teamNumber, String field) {
+        checkConnection();
         String data = null;
         try {
-            statement = connection.createStatement();
+            ps = connection.prepareStatement("SELECT teamnum," + field + " FROM teamdata;");
         } catch (SQLException ex) {
             Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
         }
         ResultSet rs = null;
         try {
-            rs = statement.executeQuery("SELECT * FROM teamdata");
+            rs = ps.executeQuery();
             rs.next();
         } catch (SQLException ex) {
             Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
@@ -158,34 +142,37 @@ public class DataBase{
                 Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        closeStatement();
         return data;
     }
-    
-    public String[] findTeam(String number){
-            String[] result = new String[getLength("SELECT * FROM teamdata WHERE teamnum LIKE '" + number + "%' ORDER BY ABS(teamnum)")];
-            ResultSet rs = null;
-            try {
-                statement = connection.createStatement();            
-                rs = statement.executeQuery("SELECT * FROM teamdata WHERE teamnum LIKE '" + number + "%' ORDER BY ABS(teamnum)");
-                //SELECT * FROM teamdata WHERE teamnum LIKE '%00%' ORDER BY ABS(teamnum);
-                int i = 0;
-                while (rs.next()) {
-                    result[i] = rs.getString("teamnum");
-                    i++;
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+
+    public String[] findTeam(String number) {
+        checkConnection();
+        String[] result = new String[getLength("SELECT teamnum FROM teamdata WHERE teamnum LIKE '" + number + "%' ORDER BY ABS(teamnum)")];
+        ResultSet rs;
+        try {
+            ps = connection.prepareStatement("SELECT teamnum FROM teamdata WHERE teamnum LIKE '" + number + "%' ORDER BY ABS(teamnum)");
+            rs = ps.executeQuery();
+            //SELECT * FROM teamdata WHERE teamnum LIKE '%00%' ORDER BY ABS(teamnum);
+            int i = 0;
+            while (rs.next()) {
+                result[i] = rs.getString("teamnum");
+                i++;
             }
-        
-            return result;
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        closeStatement();
+        return result;
     }
-    
-    public boolean haveTeam(String teamNumber){
+
+    public boolean haveTeam(String teamNumber) {
+        checkConnection();
         return getLength("SELECT * FROM teamdata WHERE teamnum='" + teamNumber + "'") != 0;
     }
-    
+
     public void addTeam(String teamNumber) {
-        PreparedStatement ps = null;
+        checkConnection();
         if (!haveTeam(teamNumber)) {
             try {
                 ps = connection.prepareStatement("INSERT INTO teamdata VALUES ('" + teamNumber + "',null,null,null,null,null,null,null,null,null,null,null)");
@@ -193,14 +180,15 @@ public class DataBase{
             } catch (SQLException ex) {
                 Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
             }
-        
+
         } else {
             Team5163.Logger.Logger.log("Team " + teamNumber + " Already Exists");
         }
     }
-    public void setData(String teamNumber, String field, String data){
-        PreparedStatement ps = null;
-        if (getLength("SELECT * FROM teamdata WHERE teamnum = '" + teamNumber + "'") == 0)  {
+
+    public void setData(String teamNumber, String field, String data) {
+        checkConnection();
+        if (getLength("SELECT * FROM teamdata WHERE teamnum = '" + teamNumber + "'") == 0) {
             Team5163.Logger.Logger.log("Team " + teamNumber + " does not exist. Field " + field + " not updated to " + data + ".");
         } else {
             try {
@@ -212,25 +200,116 @@ public class DataBase{
         }
 
     }
-    
-    public boolean haveData(String teamNumber, String field){
+
+    public boolean haveData(String teamNumber, String field) {
+        checkConnection();
         ResultSet rs;
-        Boolean wasNull = null;
+        Boolean wasNull = null; //Maybe change to true?
         // The irony... 
         try {
-            statement = connection.createStatement();
-            rs = statement.executeQuery("SELECT * FROM teamdata WHERE teamnum = '" + teamNumber + "'");
+            ps = connection.prepareStatement("SELECT " + field + " FROM teamdata WHERE teamnum = '" + teamNumber + "';");
+            rs = ps.executeQuery();
             rs.next();
             rs.getString(field);
             wasNull = rs.wasNull();
         } catch (SQLException ex) {
             Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
         }
+        closeStatement();
         return !wasNull;
+    }
+
+    public Map<String, Integer> getLogins() {
+        checkConnection();
+        ResultSet rs;
+        Map<String, Integer> logins = new HashMap<>();
+        try {
+            ps = connection.prepareStatement("SELECT * FROM logins;");
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                logins.put(rs.getString("username"), rs.getInt("passhash"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        closeStatement();
+        return logins;
+    }
+
+    public Map<String, Integer> addUser(String username, int passhash, int teamnum) {
+        checkConnection();
+        try {
+//            Team5163.Logger.Logger.log("INSERT INTO logins VALUES(\"" + username + "\"," + passhash + ");");
+            ps = connection.prepareStatement("INSERT INTO logins VALUES(\"" + username + "\"," + passhash + "," + teamnum + ");");
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return getLogins();
+    }
+
+    public Map<String, Integer> removeUser(String username) {
+        checkConnection();
+        try {
+            ps = connection.prepareCall("DELETE FROM logins WHERE username=\"" + username + "\");");
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        closeStatement();
+        return getLogins();
+    }
+
+    public int getTeamNumber(String username) {
+        checkConnection();
+        ResultSet rs;
+        int teamnum = 0;
+        try {
+            ps = connection.prepareStatement("SELECT teamnum FROM logins WHERE (username=\"" + username + "\");");
+            rs = ps.executeQuery();
+            rs.next();
+            teamnum = rs.getInt("teamnum");
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        closeStatement();
+        return teamnum;
+    }
+
+    public void setTeamNumber(String username, int number) {
+        checkConnection();
+        //NOT YET IMPLEMENTED, use this to test preparedStatement
+        closeStatement();
+    }
+
+    public int[] getTeamMatches(String teamnum) { //TODO: Write getLength method with resultset as input
+        checkConnection();
+        ResultSet rs;
+        int[] matchnums = null;
+        try {
+            ps = connection.prepareStatement("SELECT matchnum FROM matchdata WHERE (red1= " + teamnum + ") OR (red2=" + teamnum + ") OR (red3= " + teamnum + ") OR (blue1= " + teamnum + ") OR (blue2= " + teamnum + ") OR (blue3= " + teamnum + ");");
+            rs = ps.executeQuery();
+            matchnums = new int[getLength("SELECT matchnum FROM matchdata WHERE (red1= " + teamnum + ") OR (red2=" + teamnum + ") OR (red3= " + teamnum + ") OR (blue1= " + teamnum + ") OR (blue2= " + teamnum + ") OR (blue3= " + teamnum + ");")];
+            int i = 0;
+            while (rs.next()) {
+                matchnums[i] = rs.getInt("teamnum");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        closeStatement();
+        return matchnums;
+    }
+    
+    private void closeStatement() {
+        //To be run after every function call in this class.
     }
     
     public void close() {
         try {
+            statement.close();
             connection.close();
         } catch (SQLException ex) {
             Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);

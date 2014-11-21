@@ -10,6 +10,7 @@ import Team5163.Logger.Logger;
 import Team5163.ObjectRegistry;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -37,8 +38,8 @@ public class Data extends HttpServlet {
             if (requestType.equalsIgnoreCase("teamList")) {
                 //return list of teams.
                 String[] listOfTeam;
-                if (request.getParameter("teamNumber") == null) {
-                    listOfTeam = ObjectRegistry.getDataBase().findTeam("");
+                if ((request.getParameter("teamNumber") == null) || request.getParameter("teamNumber").equals("")) {
+                    listOfTeam = new String[]{" "};
                 } else {
                     listOfTeam = ObjectRegistry.getDataBase().findTeam(request.getParameter("teamNumber"));
                 }
@@ -88,20 +89,25 @@ public class Data extends HttpServlet {
                     
                     request.getRequestDispatcher("Data?type=viewPage&teamNumber=" + request.getParameter("number")).forward(request, response);
                 }
-                return;
+                return; //Figure this out
             }
         }
     }
 
     @Override
     public void init() {
-        //Logger.log("Start");
+        try {
+            //Logger.log("Start");
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+        }
         ObjectRegistry.getDataBase().connect();
     }
     
     @Override
     public void destroy() {
-        //Logger.log("destory");
+        //Logger.log("destroy");
         ObjectRegistry.getDataBase().close();
     }
 
