@@ -44,11 +44,20 @@
 <h2>At this time, signing up is only possible via an invite. To request an invite, kindly fill out the form below.</h2>
 <form id="signup"></form>
 </section>
-<footer>
-<ul><li><a href="about.html">About</a></li> <li><a href="login.html" class="current">Log In or Sign Up</a></li></ul>
-<h2 id="credittext">@</h1>
-</footer>
+        <footer>
+            <ul><li><a href="about.jsp">About</a></li>
 
+                <% if (!request.getSession().getAttribute("login").toString().equalsIgnoreCase("true")) {%> 
+                <li><a href="login.jsp" class="current">Log In or Sign Up</a></li>
+                    <%} else {%>
+                <form action="Server" id="logout">
+                    <input type="hidden" name="keepin" value="false" />
+                    <li><a class="link" onClick="document.getElementById('logout').submit();">You are already logged in. Log Out?</a></li>
+                </form>
+                <%}%>
+            </ul>
+            <h2 id="credittext">@</h2>
+        </footer>
 </body>
 
 </html>

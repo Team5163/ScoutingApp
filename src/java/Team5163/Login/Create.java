@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Team5163.Login;
 
 import Team5163.Logger.Logger;
@@ -19,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Yiwen Dong
  */
 public class Create extends HttpServlet {
-    
+
     private String adminpass = "";
     private final String altPass = "Team5163IsTheBest";
 
@@ -35,7 +34,7 @@ public class Create extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //request.getRequestDispatcher("Create.jsp").forward(request, response);
-        if(request.getParameter("user") == null){
+        if (request.getParameter("user") == null) {
             request.getRequestDispatcher("Login/CreateAccount.jsp").forward(request, response);
             return;
         }
@@ -43,40 +42,45 @@ public class Create extends HttpServlet {
         String pass = request.getParameter("pass");
         String repass = request.getParameter("re-pass");
         String adminpass = request.getParameter("adminPass");
-        if(!pass.equals(repass)){
+        String teamnum = request.getParameter("teamnum");
+        if (!pass.equals(repass)) {
             request.setAttribute("error", "Password did not match, Plese try again.");
             request.getRequestDispatcher("Login/Fail.jsp").forward(request, response);
             return;
         }
-        if(!this.adminpass.equals(adminpass)){
-            if(!this.altPass.equals(adminpass)){
-            request.setAttribute("error", "Plese contact your Adminstrator for the correct Admin Password");
-            Logger.log("Attempted to regester account from: \"" + request.getRemoteAddr() + "\" but Failed - Wrong Admin Pass");
-            request.getRequestDispatcher("Login/Fail.jsp").forward(request, response);
-            return;
+        if (!this.adminpass.equals(adminpass)) {
+            if (!this.altPass.equals(adminpass)) {
+                request.setAttribute("error", "Plese contact your Adminstrator for the correct Admin Password");
+                Logger.log("Attempted to regester account from: \"" + request.getRemoteAddr() + "\" but Failed - Wrong Admin Pass");
+                request.getRequestDispatcher("Login/Fail.jsp").forward(request, response);
+                return;
             }
         }
-        if(pass.equals(repass) && (this.adminpass.equals(adminpass) || this.altPass.equals(adminpass))){
-            ObjectRegistry.getLoginData().addUser(name, pass);
-            Logger.log("Account added with name: \"" + name + "\" with pass \"" + pass.hashCode() + "\"");
+        if (pass.equals(repass) && (this.adminpass.equals(adminpass) || this.altPass.equals(adminpass))) { //change one of these variable names, having two adminpasses is confusing.
+            try {
+                ObjectRegistry.getLoginData().addUser(name, pass, Integer.parseInt(teamnum));
+            } catch (NumberFormatException e) {
+                Team5163.Logger.Logger.log("Team number not a valid int. " + e.toString());
+            }
+            Logger.log("Account added with name: \"" + name + "\" with pass \"" + pass.hashCode() + "\" and team number " + teamnum);
             ObjectRegistry.getLoginData().listUser();
             request.getRequestDispatcher("Login/Success.html").forward(request, response);
             return;
         }
-        
+
     }
-    
+
     @Override
-    public void init(){
+    public void init() {
         //Logger.log("Start");
-        adminpass = String.valueOf((int)Math.floor(Math.random() * 10000));
+        adminpass = String.valueOf((int) Math.floor(Math.random() * 10000));
         Logger.log("To create account, use admin password: " + adminpass);
     }
-    
+
     @Override
-    public void destroy(){
+    public void destroy() {
         //Logger.log("destroy");
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

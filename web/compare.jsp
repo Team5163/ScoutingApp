@@ -22,8 +22,10 @@
 </head>
 <body>
 
-    <% request.getSession().setAttribute("mode", "compare");
-       request.getSession().setAttribute("login", "false");%>
+        <% request.getSession().setAttribute("mode", "compare");
+            if (request.getSession().getAttribute("login") == null) {
+                request.getSession().setAttribute("login", "false");
+            }%>
     
 <header>
 <a href="view.jsp" id="logo"></a>
@@ -65,10 +67,20 @@
        
        <section id="teamcompare"><iframe id="teamcompareframe" src="Data?type=viewPage&teamNumber=0000"></iframe></section>
 
-<footer>
-<ul><li><a href="about.jsp">About</a></li> <li><a href="login.jsp">Log In or Sign Up</a></li></ul>
-<h2 id="credittext">@</h1>
-</footer>
+        <footer>
+            <ul><li><a href="about.jsp">About</a></li>
+
+                <% if (!request.getSession().getAttribute("login").toString().equalsIgnoreCase("true")) {%> 
+                <li><a href="login.jsp">Log In or Sign Up</a></li>
+                    <%} else {%>
+                <form action="Server" id="logout">
+                    <input type="hidden" name="keepin" value="false" />
+                    <li><a class="link" onClick="document.getElementById('logout').submit();">Log Out</a></li>
+                </form>
+                <%}%>
+            </ul>
+            <h2 id="credittext">@</h2>
+        </footer>
 
 </body>
 

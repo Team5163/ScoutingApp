@@ -11,7 +11,10 @@
 
 </head>
 <body>
-
+        <% request.getSession().setAttribute("mode", "about");
+            if (request.getSession().getAttribute("login") == null) {
+                request.getSession().setAttribute("login", "false");
+            }%>
 <header>
 <a href="view.html" id="logo"></a>
 
@@ -42,10 +45,20 @@
 <p>This app was developed starting in the 2013-2014 post-season and is currently undergoing development. It aims to simplify and consolidate the scouting efforts of FRC teams like us. </p>
 </section>
 
-<footer>
-<ul><li><a href="about.html" class="current">About</a></li> <li><a href="login.html">Log In or Sign Up</a></li></ul>
-<h2 id="credittext">@</h1>
-</footer>
+        <footer>
+            <ul><li><a href="about.jsp">About</a></li>
+
+                <% if (!request.getSession().getAttribute("login").toString().equalsIgnoreCase("true")) {%> 
+                <li><a href="login.jsp">Log In or Sign Up</a></li>
+                    <%} else {%>
+                <form action="Server" id="logout">
+                    <input type="hidden" name="keepin" value="false" />
+                    <li><a class="link" onClick="document.getElementById('logout').submit();">Log Out</a></li>
+                </form>
+                <%}%>
+            </ul>
+            <h2 id="credittext">@</h2>
+        </footer>
 
 </body>
 
