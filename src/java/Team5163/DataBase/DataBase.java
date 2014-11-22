@@ -311,6 +311,7 @@ public class DataBase {
     public void close() {
         try {
             statement.close();
+            ps.close();
             connection.close();
         } catch (SQLException ex) {
             Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
