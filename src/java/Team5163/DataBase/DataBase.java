@@ -50,12 +50,12 @@ public class DataBase {
         } catch (NamingException ex) {
             Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        try {
-            datasource = (DataSource) initialContext.lookup("java:comp/env/jdbc/scoutdb");
-        } catch (NamingException ex) {
-            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        
+//        try {
+//            datasource = (DataSource) initialContext.lookup("java:comp/env/jdbc/scoutdb");
+//        } catch (NamingException ex) {
+//            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+//        }
 
         try {
             connection = datasource.getConnection();
@@ -71,7 +71,7 @@ public class DataBase {
                 try {
                     if (datasource == null) {
                         initialContext = new InitialContext();
-                        datasource = (DataSource) initialContext.lookup("java:comp/env/jdbc/scoutdb");
+                        datasource = (DataSource) initialContext.lookup("java:comp/env/jdbc/thescoutingapp");
                     }
                     connection = datasource.getConnection();
                 } catch (SQLException | NamingException ex) {
