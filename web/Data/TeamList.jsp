@@ -1,7 +1,7 @@
 <%-- 
     Document   : TeamList
     Created on : Aug 9, 2014, 7:34:05 PM
-    Author     : Yiwen Dong
+    Author     : Yiwen Dong, Rish Shadra
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -16,7 +16,6 @@
         <script>
             var URLCreate = "./Login/CreateAccount.jsp";
             var URLTeamList = "Data?type=teamList&teamNumber=11";
-            //var url = [];
             var numbers = [];
             function setFrame1(url){
                 parent.document.getElementById("teamviewframe").setAttribute("src", url);

@@ -285,7 +285,7 @@ public class DataBase {
         closeStatement();
     }
 
-    public int[] getTeamMatches(String teamnum) { //TODO: Write getLength method with resultset as input
+    public int[] getTeamMatches(String teamnum) { //TODO: Write getLength method with resultset as input. Change teamnum to an int instead of a string in the db and in this method.
         checkConnection();
         ResultSet rs;
         int[] matchnums = null;
@@ -302,6 +302,58 @@ public class DataBase {
         }
         closeStatement();
         return matchnums;
+    }
+
+    public boolean getWinningAlliance(int matchnum) {
+        //Returns true for blue, false for red. Why? Because true and blue rhyme. On a more serious note, how will this handle ties? Null?
+        checkConnection();
+        ResultSet rs;
+        int totalred = 0;
+        int totalblue = 0;
+        try {
+            ps = connection.prepareStatement("SELECT red1score,red2score,red3score,blue1score,blue2score,blue3score FROM matchdata WHERE matchnum = ?");
+            ps.setInt(1, matchnum);
+            rs = ps.executeQuery();
+
+            totalred = rs.getInt("red1score") + rs.getInt("red2score") + rs.getInt("red3score");
+            totalblue = rs.getInt("blue1score") + rs.getInt("blue2score") + rs.getInt("blue3score");
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        closeStatement();
+        return totalblue > totalred;
+
+    }
+
+    public Map<Integer, Integer> getScores(int matchnum) { //TODO: Add a duplicate team resolution/merge tool
+        //<TeamNum,Score>
+        checkConnection();
+        Map<Integer, Integer> scores = new HashMap();
+        ResultSet rs;
+
+        try {
+            ps = connection.prepareStatement("SELECT red1,red2,red3,blue1,blue2,blue3,red1score,red2score,red3score,blue1score,blue2score,blue3score FROM matchdata WHERE matchnum = ?");
+            rs = ps.executeQuery();
+            rs.next();
+
+            scores.put(rs.getInt("red1"), rs.getInt("red1score"));
+            scores.put(rs.getInt("red2"), rs.getInt("red2score"));
+            scores.put(rs.getInt("red3"), rs.getInt("red3score"));
+            scores.put(rs.getInt("blue1"), rs.getInt("blue1score"));
+            scores.put(rs.getInt("blue2"), rs.getInt("blue2score"));
+            scores.put(rs.getInt("blue3"), rs.getInt("blue3score"));
+
+            rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        closeStatement();
+        return scores;
+    }
+
+    public String[][] summarizeDatabase(String dbname) {
+        return new String[1][1]; //TO BE IMPLEMENTED
     }
 
     private void closeStatement() {
