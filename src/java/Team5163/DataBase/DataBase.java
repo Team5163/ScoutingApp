@@ -291,7 +291,7 @@ public class DataBase {
         int[] matchnums = null;
         try {
             ps = connection.prepareStatement("SELECT matchnum FROM matchdata WHERE (red1= " + teamnum + ") OR (red2=" + teamnum + ") OR (red3= " + teamnum + ") OR (blue1= " + teamnum + ") OR (blue2= " + teamnum + ") OR (blue3= " + teamnum + ");");
-            rs = ps.executeQuery();
+            rs = ps.executeQuery(); //Use preparedstatement arguments here instead of string concat
             matchnums = new int[getLength("SELECT matchnum FROM matchdata WHERE (red1= " + teamnum + ") OR (red2=" + teamnum + ") OR (red3= " + teamnum + ") OR (blue1= " + teamnum + ") OR (blue2= " + teamnum + ") OR (blue3= " + teamnum + ");")];
             int i = 0;
             while (rs.next()) {
@@ -352,8 +352,31 @@ public class DataBase {
         return scores;
     }
 
-    public String[][] summarizeDatabase(String dbname) {
-        return new String[1][1]; //TO BE IMPLEMENTED
+    public String[][] summarizeDatabase(String tablename) {
+        checkConnection();
+        ResultSet rs;
+        ResultSetMetaData rsmd;
+        int numCols, length;
+        String[][] summary;
+        try {
+            length = getLength("SELECT * FROM " + tablename + ";");
+            ps = connection.prepareStatement("SELECT * FROM " + tablename + ";"); //Is this line needed?
+            rs = ps.executeQuery();
+            rsmd = rs.getMetaData();
+            numCols = rsmd.getColumnCount();
+            summary = new String[length][numCols];
+            for (int i = 0; i < length; i++) {
+                rs.next();
+                for (int j = 0; j < numCols; j++) {
+                    summary[i][j] = rs.getObject(j).toString();
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        return new String[1][1]; //TO BE IMPLEMENTED, for use with planned debug page
     }
 
     private void closeStatement() {

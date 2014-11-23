@@ -56,7 +56,7 @@ public class LoginData {
             this.start();
         }
         if (mapOfUser.containsKey(name)) {
-            mapOfUser = ObjectRegistry.getDataBase().removeUser(name);
+            mapOfUser = ObjectRegistry.getDataBase().removeUser(name); //Is this really a good idea?
         }
         mapOfUser = ObjectRegistry.getDataBase().addUser(name, password.hashCode(), teamnum);
     }
