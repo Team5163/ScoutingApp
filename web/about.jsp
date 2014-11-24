@@ -43,7 +43,8 @@
             <div id="teamimage" class="inline">
                 <img src="img/team.jpg" class="inlineimage"/>
                 <center class="captioncenter"><h2 class="caption">The Team</h2></center></div> <!-- CSS wouldn't work here so <center> it is -->
-            <p>This app was developed starting in the 2013-2014 post-season and is currently undergoing development. It aims to simplify and consolidate the scouting efforts of FRC teams like us. </p>
+                <p>This app was developed starting in the 2013-2014 post-season and is currently undergoing development. It aims to simplify and consolidate the scouting efforts of FRC teams like us. The source code for this app can be found <a href="http://github.com/team5163/scoutingapp">Here</a>.</p><br />
+                <p>Thank you to the following people for helping test the application: <!--Table here--></p>
         </section>
 
         <footer>
