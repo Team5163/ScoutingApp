@@ -6,7 +6,6 @@ package Team5163;
  * and open the template in the editor.
  */
 
-import Team5163.DataBase.DataBase;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
