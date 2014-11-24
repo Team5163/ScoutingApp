@@ -7,34 +7,12 @@ package Team5163.Login;
 
 import static Team5163.Logger.Logger.log;
 import Team5163.ObjectRegistry;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 /**
  *
- * @author Yiwen Dong
+ * @author Rish Shadra, Yiwen Dong
  */
 public class LoginData {
 
@@ -42,6 +20,7 @@ public class LoginData {
     private Map<String, Integer> mapOfUser = new HashMap<>();
 
     public LoginData() {
+
     }
 
     public void start() {
@@ -50,7 +29,7 @@ public class LoginData {
     }
 
     public void stop() {
-//Close the database connection, maybe?
+        //Close the database connection, maybe?
     }
 
     public void refreshMap() {
@@ -67,6 +46,7 @@ public class LoginData {
                 return true;
             }
         }
+
         return false;
     }
 
