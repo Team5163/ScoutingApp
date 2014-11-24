@@ -16,11 +16,3 @@ should open. This serves as a fully functional version of the app. To deploy the
 tomcat server, simply click on the "Clean and Build" button next to the green play button
 and place the generated .war file in your webapps directory. With default tomcat settings,
 you should be able to access the app by going to localhost:8080/ScoutingApp/
-
-5. We also host a live demo of the application at thescoutingapp-frc5163.rhcloud.com. It
-may not always be up because it is used for development, but it will give you a general 
-idea of what the application looks like. If you would like an account for this site for
-further testing, contact [FIRST Robotics Competition acronym]team[Team number in the URL][AT]
-[Google's email service].com with your desired username and your FRC team number (if you are
-on an FRC team). A set of credentials will be generated for you and emailed to you as soon as
-possible.

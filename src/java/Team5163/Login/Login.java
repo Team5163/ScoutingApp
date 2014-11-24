@@ -6,6 +6,7 @@
 package Team5163.Login;
 
 import Team5163.Logger.Logger;
+import static Team5163.Logger.Logger.log;
 import Team5163.ObjectRegistry;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -17,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Yiwen Dong
  */
-public class Login extends HttpServlet { //This servlet throws a NullPointerException when you try to directly access it from the web.
+public class Login extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -28,7 +29,7 @@ public class Login extends HttpServlet { //This servlet throws a NullPointerExce
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) //pass should not be stored as a string- Its hash code should be the only representation of it in memory.
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String name = request.getParameter("user");
         String pass = request.getParameter("pass");
@@ -46,6 +47,15 @@ public class Login extends HttpServlet { //This servlet throws a NullPointerExce
             request.getRequestDispatcher("Server").forward(request, response);
         }
     }
+
+//    private boolean checkPass(String username, String password) {
+//        if (ObjectRegestry.getAllUsers().containsKey(username)) {
+//            if (ObjectRegestry.getAllUsers().get(username).hashCode() == password.hashCode()) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
     
     @Override
     public void init(){
@@ -95,7 +105,7 @@ public class Login extends HttpServlet { //This servlet throws a NullPointerExce
      */
     @Override
     public String getServletInfo() {
-        return "This servlet manages login and user verification.";
+        return "Short description";
     }// </editor-fold>
 
 }

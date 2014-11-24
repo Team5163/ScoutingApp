@@ -61,13 +61,7 @@
 
         <section id="teamview">
 
-            <iframe id="teamviewframe" src="Data?type=viewPage&teamNumber=<%
-            if (request.getSession().getAttribute("login").toString().equalsIgnoreCase("true")) {
-                out.print(Team5163.ObjectRegistry.getDataBase().getTeamNumber(String.valueOf(request.getSession().getAttribute("name"))));
-            } else {
-                out.print("0000");
-            }
-            %>"></iframe>
+            <iframe id="teamviewframe" src="Data?type=viewPage&teamNumber=<%out.print(Team5163.ObjectRegistry.getDataBase().getTeamNumber(String.valueOf(request.getSession().getAttribute("name"))));%>"></iframe>
 
         </section>
 
